@@ -702,3 +702,724 @@ select.urlap-mezoszam option {
         padding: 40px 30px;
     }
 }
+
+/* ==========================================
+   LUXUS STUDIOS - ULTRA-PROFESSZIONÁLIS STÍLUSLAP
+   (Teljes iOS / WebKit optimalizációval)
+========================================== */
+
+/* Prémium Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Syne:wght@500;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    -webkit-tap-highlight-color: transparent; /* Kék érintési villogás eltüntetése iOS-en */
+}
+
+html {
+    height: -webkit-fill-available; /* iOS Safari magasság fix */
+}
+
+body {
+    background-color: #0b0b0b;
+    color: #eaeaea;
+    line-height: 1.7;
+    overflow-x: hidden;
+    min-height: 100vh;
+    min-height: -webkit-fill-available; /* iOS Safari magasság fix */
+    -webkit-font-smoothing: antialiased; /* Tűéles betűk Retina kijelzőkön */
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* iOS alapértelmezett formázások eltávolítása az űrlapokról */
+input, select, textarea, button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0;
+    font-family: inherit;
+}
+
+.kontener {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.kozepre {
+    text-align: center;
+}
+
+.terulet-padding {
+    padding: 100px 0;
+}
+
+/* ==========================================
+   FEJLÉC ÉS NAVIGÁCIÓ (Üveg hatás - Glassmorphism)
+========================================== */
+.fejlec {
+    background-color: rgba(11, 11, 11, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px); /* Safari támogatás */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.fejlec-doboz {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 90px;
+}
+
+.logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    color: #d4af37;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.logo span {
+    color: #ffffff;
+    font-weight: 400;
+}
+
+.nav-lista {
+    display: flex;
+    gap: 35px;
+    align-items: center;
+}
+
+.nav-link {
+    color: #cfcfcf;
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover, .nav-link.aktiv {
+    color: #d4af37;
+}
+
+/* ==========================================
+   GOMBOK (Luxus fényezésű hatás)
+========================================== */
+.gomb {
+    padding: 14px 32px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-block;
+    border: none;
+    touch-action: manipulation; /* Gyorsabb kattintás iOS-en */
+}
+
+.gomb-elsodleges {
+    background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
+    color: #0b0b0b;
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.25);
+}
+
+.gomb-elsodleges:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(212, 175, 55, 0.4);
+    background: linear-gradient(135deg, #e6be40 0%, #bd9c31 100%);
+}
+
+.gomb-keret {
+    background-color: transparent;
+    color: #d4af37;
+    border: 1px solid rgba(212, 175, 55, 0.4);
+}
+
+.gomb-keret:hover {
+    background-color: rgba(212, 175, 55, 0.1);
+    border-color: #d4af37;
+}
+
+/* ==========================================
+   HERO SZEKCIÓ
+========================================== */
+.hero {
+    position: relative;
+    height: 92vh;
+    display: flex;
+    align-items: center;
+    background: url('kocsik.jfif') center/cover no-repeat;
+}
+
+.hero-hatter {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(11,11,11,0.95) 0%, rgba(11,11,11,0.5) 100%);
+    z-index: 1;
+}
+
+.hero-tartalom {
+    position: relative;
+    z-index: 2;
+    max-width: 850px;
+}
+
+.hero-cim {
+    font-family: 'Syne', sans-serif;
+    font-size: 4.2rem;
+    line-height: 1.05;
+    margin-bottom: 25px;
+    font-weight: 800;
+}
+
+.hero-cim span {
+    color: #d4af37;
+    font-style: italic;
+    font-weight: 500;
+}
+
+.hero-alcim {
+    font-size: 1.15rem;
+    color: #a0a0a0;
+    margin-bottom: 45px;
+    max-width: 600px;
+    font-weight: 300;
+}
+
+.hero-gombok {
+    display: flex;
+    gap: 20px;
+}
+
+/* ==========================================
+   CÍMEK ÉS KÁRTYÁK
+========================================== */
+.szekcio-cim {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.8rem;
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.szekcio-cim span {
+    color: #d4af37;
+}
+
+.elvalaszto {
+    height: 2px;
+    width: 50px;
+    background: linear-gradient(90deg, #d4af37, transparent);
+    margin: 15px auto 40px;
+}
+
+.racs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.kartya {
+    background: linear-gradient(145deg, #141414 0%, #0e0e0e 100%);
+    padding: 50px 35px;
+    border-radius: 8px;
+    text-align: left;
+    border: 1px solid rgba(255,255,255,0.04);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.kartya::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.kartya:hover {
+    transform: translateY(-8px);
+    border-color: rgba(212, 175, 55, 0.3);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+.kartya:hover::before {
+    opacity: 1;
+}
+
+.kartya-ikon {
+    font-size: 2.5rem;
+    color: #d4af37;
+    margin-bottom: 25px;
+}
+
+.kartya-cim {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.kartya-szoveg {
+    color: #999999;
+    font-size: 0.95rem;
+    font-weight: 300;
+}
+
+/* ==========================================
+   ELŐTTE-UTÁNA CSÚSZKA
+========================================== */
+.csuszka-doboz {
+    position: relative;
+    width: 100%;
+    max-height: 520px;
+    overflow: hidden;
+    border-radius: 10px;
+    margin: 40px 0;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+}
+
+.csuszka-doboz img {
+    width: 100%;
+    height: 520px;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+}
+
+.elozo-kep {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.elozo-kep img {
+    width: 100vw;
+    max-width: 1200px;
+    height: 520px;
+    object-fit: cover;
+}
+
+.csuszka-doboz input[type=range] {
+    position: absolute;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    outline: none;
+    margin: 0;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    cursor: ew-resize;
+}
+
+.csuszka-doboz input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 4px;
+    height: 520px;
+    background: #d4af37;
+    box-shadow: 0 0 15px #d4af37;
+    cursor: ew-resize;
+}
+
+/* ==========================================
+   KALKULÁTOR ÉS ŰRLAPOK
+========================================== */
+.kalkulator-doboz, .urlap-tarolo, .kartya-sotet {
+    background: linear-gradient(145deg, #141414 0%, #0e0e0e 100%);
+    padding: 45px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
+    margin-top: 40px;
+    text-align: left;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+}
+
+.kalkulator-eredmeny {
+    font-size: 2.2rem;
+    color: #d4af37;
+    font-family: 'Syne', sans-serif;
+    margin: 20px 0;
+    font-weight: 800;
+}
+
+.urlap-csoport {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.urlap-csoport label {
+    display: block;
+    margin-bottom: 10px;
+    color: #b0b0b0;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+}
+
+.urlap-mezoszam {
+    width: 100%;
+    padding: 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: white;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.urlap-mezoszam:focus {
+    outline: none;
+    border-color: #d4af37;
+    background: rgba(212, 175, 55, 0.02);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+}
+
+select.urlap-mezoszam option {
+    background: #141414;
+    color: white;
+}
+
+/* ==========================================
+   GYIK (AKORDEON)
+========================================== */
+.gyik-doboz {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.gyik-elem {
+    background: linear-gradient(145deg, #141414 0%, #0e0e0e 100%);
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.04);
+    overflow: hidden;
+    text-align: left;
+}
+
+.gyik-kerdes {
+    padding: 22px 25px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ffffff;
+    font-size: 1.05rem;
+    transition: color 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.gyik-kerdes:hover {
+    color: #d4af37;
+}
+
+.gyik-valasz {
+    padding: 0 25px 25px 25px;
+    color: #999999;
+    font-size: 0.95rem;
+    display: none;
+    line-height: 1.7;
+    font-weight: 300;
+}
+
+/* ==========================================
+   LÁBLÉC
+========================================== */
+.lablec {
+    background-color: #070707;
+    padding: 80px 0 25px;
+    border-top: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.lablec-racs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+    margin-bottom: 50px;
+    text-align: left;
+}
+
+.lablec-marka h3 {
+    color: #d4af37;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.lablec-marka p, .lablec-kapcsolat p {
+    color: #888888;
+    font-size: 0.9rem;
+    font-weight: 300;
+}
+
+.lablec-kapcsolat h4 {
+    margin-bottom: 20px;
+    font-family: 'Syne', sans-serif;
+    color: #ffffff;
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+}
+
+.lablec-kapcsolat p {
+    margin-bottom: 12px;
+}
+
+.lablec-kapcsolat a {
+    color: #888888;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.lablec-kapcsolat a:hover {
+    color: #d4af37;
+}
+
+.lablec-also {
+    color: #666666;
+    font-size: 0.85rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 25px;
+    font-weight: 300;
+}
+
+/* ==========================================
+   EGYÉB ELEMEK ÉS KIEGÉSZÍTÉSEK
+========================================== */
+.vezerlopult-racs { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; margin-top: 40px; }
+.ertesites { padding: 18px; border-left: 3px solid #d4af37; background: rgba(255,255,255,0.01); margin-bottom: 15px; border-radius: 0 6px 6px 0; }
+.ertesites.piros { border-left-color: #ff4d4d; }
+.ertesites.zold { border-left-color: #4CAF50; }
+
+.telephely-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 50px; }
+.telephely-kartya { background: linear-gradient(145deg, #141414 0%, #0e0e0e 100%); padding: 45px 35px; border-radius: 8px; text-align: left; border: 1px solid rgba(255,255,255,0.04); transition: 0.3s ease; }
+.telephely-kartya:hover { transform: translateY(-5px); border-color: rgba(212,175,55,0.3); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+
+.teljes-szelesseg { width: 100%; text-align: center; display: block; margin-top: 20px; }
+.alcim-szurke { color: #999999; max-width: 650px; margin: 0 auto 40px; font-weight: 300; font-size: 1.05rem; }
+
+/* Cookie Sáv (iOS Safe Area védelemmel) */
+.cookie-sav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #121212;
+    border-top: 2px solid #d4af37;
+    padding: 25px 30px;
+    padding-bottom: calc(25px + env(safe-area-inset-bottom)); /* iOS iPhone home csík elkerülése */
+    z-index: 9999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+}
+.cookie-szoveg { margin: 0; font-size: 0.95rem; max-width: 800px; color: #999999; font-weight: 300; }
+.cookie-link { color: #d4af37; text-decoration: underline; }
+.cookie-gombok { display: flex; gap: 12px; }
+
+.gomb-cookie-elutasit { background: transparent; color: #888888; border: 1px solid rgba(255,255,255,0.15); padding: 12px 24px; cursor: pointer; border-radius: 4px; text-transform: uppercase; font-size: 0.8rem; transition: 0.3s; font-weight: 600; }
+.gomb-cookie-elutasit:hover { border-color: #d4af37; color: #d4af37; }
+.gomb-cookie-elfogad { background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%); color: #0b0b0b; border: none; padding: 12px 24px; cursor: pointer; border-radius: 4px; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(212,175,55,0.2); }
+.gomb-cookie-elfogad:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(212,175,55,0.35); }
+
+/* ==========================================
+   PRÉMIUM LUXUS FIZETÉSI OLDAL STÍLUSOK
+========================================== */
+.fizetes-test {
+    background: url('kocsik.jfif') center/cover no-repeat;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.fizetes-luxus-kontener {
+    display: flex;
+    max-width: 1000px;
+    width: 90%;
+    background: rgba(15, 15, 15, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px); /* Safari Glassmorphism */
+    border-radius: 12px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.05);
+    overflow: hidden;
+    margin: 40px auto;
+    z-index: 2;
+}
+
+.fizetes-osszegzes {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 50px 40px;
+    width: 45%;
+    border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+.fizetes-urlap-resz {
+    padding: 50px 40px;
+    width: 55%;
+}
+
+.rendeles-tetel {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255,255,255,0.03);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.05);
+    margin-bottom: 25px;
+}
+
+.tetel-ikon {
+    width: 50px;
+    height: 50px;
+    background: rgba(212, 175, 55, 0.1);
+    color: #d4af37;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    font-size: 1.5rem;
+}
+
+.tetel-adatok h4 { color: #fff; font-size: 1.1rem; margin-bottom: 3px; }
+.tetel-adatok p { color: #a0a0a0; font-size: 0.85rem; }
+
+.elvalaszto-vonal { height: 1px; background: rgba(255,255,255,0.1); margin: 30px 0; }
+.osszesen-sor { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+.osszesen-sor span { color: #a0a0a0; font-size: 1.1rem; }
+.arany-szoveg { color: #d4af37; font-size: 1.8rem; font-family: 'Syne', sans-serif; }
+.biztonsagi-jelvenyek p { color: #777; font-size: 0.85rem; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+.biztonsagi-jelvenyek i { color: #4CAF50; }
+
+.input-ikonnal { position: relative; display: flex; align-items: center; }
+.input-ikonnal i { position: absolute; left: 16px; color: #888; font-size: 1.1rem; transition: 0.3s; }
+.input-ikonnal input { padding-left: 45px !important; }
+.input-ikonnal input:focus + i, .input-ikonnal input:focus ~ i { color: #d4af37; }
+
+.koszono-doboz {
+    background: linear-gradient(145deg, #141414 0%, #0e0e0e 100%);
+    padding: 60px 50px;
+    border-radius: 12px;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    max-width: 650px;
+    margin: 0 auto;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.rendeles-szam-doboz {
+    background: rgba(212, 175, 55, 0.05);
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px dashed rgba(212, 175, 55, 0.3);
+    margin: 30px 0;
+}
+.rendeles-szam-doboz p { color: #a0a0a0; margin-bottom: 8px; font-size: 0.9rem; }
+.kiemelt-kod { color: #fff; font-size: 1.5rem; letter-spacing: 3px; font-family: 'Syne', sans-serif; }
+
+/* ==========================================
+   INTERAKTÍV KÉPES reCAPTCHA STÍLUSOK
+========================================== */
+.g-recaptcha-dark {
+    background-color: #222222;
+    border: 1px solid #525252;
+    border-radius: 3px;
+    box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 304px;
+    height: 78px;
+    padding: 0 12px 0 15px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    user-select: none;
+    transition: background 0.3s ease;
+}
+
+.g-recaptcha-dark:hover { background-color: #2a2a2a; }
+.rc-anchor-content { display: flex; align-items: center; gap: 15px; }
+.rc-checkbox { width: 28px; height: 28px; background-color: #ffffff; border: 2px solid #c1c1c1; border-radius: 2px; position: relative; display: flex; justify-content: center; align-items: center; transition: all 0.2s ease; }
+.g-recaptcha-dark:hover .rc-checkbox { border-color: #b2b2b2; }
+
+.rc-checkbox.success { border-color: transparent !important; background: transparent !important; }
+.rc-checkbox.success .rc-check { display: block; color: #009E55; font-size: 1.8rem; animation: rc-popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.rc-check { display: none; }
+.rc-label { color: #f5f5f5; font-family: Arial, sans-serif; font-size: 14px; font-weight: 400; }
+.rc-anchor-logo { display: flex; flex-direction: column; align-items: center; opacity: 0.8; }
+.rc-anchor-logo img { width: 32px; margin-bottom: 2px; }
+.rc-terms { color: #9b9b9b; font-size: 10px; text-align: center; line-height: 1.2; font-family: Arial, sans-serif; }
+
+.modal-hatter { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
+.captcha-doboz { background-color: #ffffff; width: 360px; border-radius: 4px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.4); color: #333333; animation: rc-popIn 0.3s ease-out; }
+.captcha-fejlec { background-color: #4A90E2; color: #ffffff; padding: 25px 20px; font-family: Arial, sans-serif; line-height: 1.3; }
+.captcha-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 12px; background-color: #ffffff; }
+.captcha-item { background-color: #f0f0f0; aspect-ratio: 1; display: flex; justify-content: center; align-items: center; font-size: 2.5rem; color: #555555; cursor: pointer; border: 4px solid transparent; border-radius: 2px; transition: all 0.2s ease; }
+.captcha-item:hover { background-color: #e4e4e4; }
+.captcha-item.kivalasztva { border-color: #4A90E2; background-color: #d9e9fa; color: #4A90E2; transform: scale(0.92); }
+.captcha-lablec { padding: 15px 20px; border-top: 1px solid #e0e0e0; text-align: right; background-color: #ffffff; }
+
+@keyframes rc-popIn {
+    0% { transform: scale(0); }
+    80% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* ==========================================
+   MOBIL NÉZET
+========================================== */
+@media (max-width: 850px) {
+    .fizetes-luxus-kontener { flex-direction: column; }
+    .fizetes-osszegzes, .fizetes-urlap-resz { width: 100%; border-right: none; }
+    .fizetes-osszegzes { border-bottom: 1px solid rgba(255,255,255,0.05); padding: 40px 30px; }
+    .fizetes-urlap-resz { padding: 40px 30px; }
+    .fejlec-doboz { flex-direction: column; height: auto; padding: 20px 0; }
+    .nav-lista { flex-direction: column; gap: 15px; margin-top: 20px; }
+    .hero-cim { font-size: 2.8rem; }
+    .hero-gombok { flex-direction: column; }
+    .vezerlopult-racs { grid-template-columns: 1fr; }
+}
