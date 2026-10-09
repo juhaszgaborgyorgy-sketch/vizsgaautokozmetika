@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="szakemberek.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header class="fejlec">
@@ -89,5 +90,29 @@
         <p>&copy; 2026 Luxus Studios. Minden jog fenntartva.</p>
     </div>
 </footer>
+<!-- Hamburger Menü Működtető Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuGomb = document.getElementById('mobilMenugomb');
+            const menu = document.getElementById('fomenu');
+
+            if(menuGomb && menu) {
+                menuGomb.addEventListener('click', function() {
+                    // Hozzáadja vagy leveszi a 'nyitva' osztályt
+                    menu.classList.toggle('nyitva');
+
+                    // Ikon animált cseréje (☰ és X között)
+                    const ikon = menuGomb.querySelector('i');
+                    if(menu.classList.contains('nyitva')) {
+                        ikon.classList.remove('fa-bars');
+                        ikon.classList.add('fa-xmark');
+                    } else {
+                        ikon.classList.remove('fa-xmark');
+                        ikon.classList.add('fa-bars');
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

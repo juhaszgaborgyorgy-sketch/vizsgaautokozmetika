@@ -2,7 +2,7 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Regisztráció | Luxus Studios</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -12,14 +12,21 @@
     <header class="fejlec">
         <div class="fejlec-doboz kontener">
             <a href="autokozmetika.html" class="logo"><i class="fa-solid fa-gem"></i> LUXUS <span>STUDIOS</span></a>
-            <nav class="navigacio">
+
+            <!-- Hamburger Gomb Mobilra -->
+            <button class="mobil-menu-gomb" id="mobilMenugomb">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <nav class="navigacio" id="fomenu">
                 <ul class="nav-lista">
+                    <!-- Fontos: Az 'aktiv' osztályt mindig annál a linknél hagyd meg, amelyik oldalon épp vagy! -->
                     <li class="nav-elem"><a href="autokozmetika.html" class="nav-link">Főoldal</a></li>
                     <li class="nav-elem"><a href="telephelyek.html" class="nav-link">Telephelyek</a></li>
                     <li class="nav-elem"><a href="szakemberek.html" class="nav-link">Mestereink</a></li>
                     <li class="nav-elem"><a href="ajandekkartya.html" class="nav-link">Utalványok</a></li>
                     <li class="nav-elem"><a href="foglalas.html" class="nav-link gomb gomb-elsodleges">Foglalás</a></li>
-                    <li class="nav-elem"><a href="ugyfelkapu.html" class="nav-link";"><i class="fa-solid fa-user"></i> Fiók</a></li>
+                    <li class="nav-elem"><a href="ugyfelkapu.html" class="nav-link" style="color: #d4af37;"><i class="fa-solid fa-user"></i> Fiók</a></li>
                 </ul>
             </nav>
         </div>
@@ -101,6 +108,30 @@
             document.getElementById('regisztracioForm').style.display = 'none';
             document.getElementById('sikeresReg').style.display = 'block';
         }
+    </script>
+<!-- Hamburger Menü Működtető Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuGomb = document.getElementById('mobilMenugomb');
+            const menu = document.getElementById('fomenu');
+
+            if(menuGomb && menu) {
+                menuGomb.addEventListener('click', function() {
+                    // Hozzáadja vagy leveszi a 'nyitva' osztályt
+                    menu.classList.toggle('nyitva');
+
+                    // Ikon animált cseréje (☰ és X között)
+                    const ikon = menuGomb.querySelector('i');
+                    if(menu.classList.contains('nyitva')) {
+                        ikon.classList.remove('fa-bars');
+                        ikon.classList.add('fa-xmark');
+                    } else {
+                        ikon.classList.remove('fa-xmark');
+                        ikon.classList.add('fa-bars');
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
