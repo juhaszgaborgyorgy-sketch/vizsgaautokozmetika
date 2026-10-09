@@ -9,7 +9,10 @@
     <link rel="stylesheet" href="foglalas.css"> <!-- Itt használhatod a foglalas.css-t -->
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body style="background: url('kocsik.jfif') center/cover no-repeat fixed; position: relative; min-height: 100vh;">
+
+    <!-- Sötétítő luxus réteg a háttérkép felett (mögé küldve, hogy ne takarja a gombokat) -->
+    <div style="position: fixed; inset: 0; background: linear-gradient(135deg, rgba(11,11,11,0.95) 0%, rgba(11,11,11,0.8) 100%); z-index: -1;"></div>
     <header class="fejlec">
         <div class="fejlec-doboz kontener">
             <a href="autokozmetika.html" class="logo"><i class="fa-solid fa-gem"></i> LUXUS <span>STUDIOS</span></a>
