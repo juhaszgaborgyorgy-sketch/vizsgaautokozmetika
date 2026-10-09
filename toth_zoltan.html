@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tóth Zoltán | Luxus Studios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="profil.css">
+</head>
+<body>
+    <header class="fejlec">
+        <div class="fejlec-doboz kontener">
+            <a href="autokozmetika.html" class="logo"><i class="fa-solid fa-gem"></i> LUXUS <span>STUDIOS</span></a>
+            <nav class="navigacio">
+                <ul class="nav-lista">
+                    <li class="nav-elem"><a href="autokozmetika.html" class="nav-link">Főoldal</a></li>
+                    <li class="nav-elem"><a href="telephelyek.html" class="nav-link">Telephelyek</a></li>
+                    <li class="nav-elem"><a href="szakemberek.html" class="nav-link">Szakemberek</a></li>
+                    <li class="nav-elem"><a href="ajandekkartya.html" class="nav-link aktiv">Utalványok</a></li>
+                    <li class="nav-elem"><a href="foglalas.html" class="nav-link gomb gomb-elsodleges">Foglalás</a></li>
+                    <li class="nav-elem"><a href="ugyfelkapu.html" class="nav-link" style="color: #d4af37;"><i class="fa-solid fa-user"></i> Fiók</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="kontener terulet-padding">
+        <div style="margin-bottom: 20px;"><a href="szakemberek.html" style="color: #d4af37; font-weight: 600;"><i class="fa-solid fa-arrow-left"></i> Vissza a szakemberekhez</a></div>
+
+        <section class="profil-hero">
+            <img src="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=400&q=80" alt="Tóth Zoltán" class="profil-kep">
+            <div>
+                <h1 style="font-family: 'Playfair Display', serif; color: #d4af37; font-size: 2.5rem; margin-bottom: 5px;">Tóth Zoltán</h1>
+                <p style="color: #a0a0a0; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 15px;">Vezető Polírozó</p>
+                <p style="color: #a0a0a0; margin-bottom: 20px;">8 év tapasztalat a többlépcsős polírozásban és a mikrokarcok maradéktalan eltávolításában. A legmattabb fényezést is gyári állapotúra varázsolja.</p>
+                <a href="foglalas.html?szakember=toth_zoltan" class="gomb gomb-elsodleges">Időpontfoglalás hozzá</a>
+            </div>
+        </section>
+
+        <section class="velemeny-doboz">
+            <h3 style="font-family: 'Playfair Display', serif; color: #d4af37; font-size: 1.5rem; margin-bottom: 20px;">Ügyfelek véleményei</h3>
+            <div id="velemenyekLista">
+                <div class="velemeny-kartya">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 600;"><span>Kovács Péter</span><span style="color: #d4af37;">★★★★★</span></div>
+                    <p style="color: #a0a0a0; font-size: 0.95rem;">Hihetetlen munkát végzett Zoltán, a fekete BMW-m tükörfényes lett!</p>
+                </div>
+            </div>
+
+            <h4 style="margin-top: 30px; margin-bottom: 15px; font-size: 1.1rem;">Írjon Ön is véleményt</h4>
+            <form action="velemeny_feldolgoz.php" method="POST">
+                <input type="hidden" name="szakember_id" value="toth_zoltan">
+                <div class="urlap-csoport">
+                    <label>Az Ön neve</label>
+                    <input type="text" name="nev" class="urlap-mezoszam" required placeholder="Pl. Szabó Béla">
+                </div>
+                <div class="urlap-csoport">
+                    <label>Vélemény</label>
+                    <textarea name="szoveg" class="urlap-mezoszam" rows="3" required placeholder="Írja le a tapasztalatait..."></textarea>
+                </div>
+                <button type="submit" class="gomb gomb-elsodleges" style="width:100%;">Vélemény elküldése</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="lablec">
+        <div class="kontener lablec-racs">
+            <div class="lablec-marka"><h3>Luxus Studios</h3><p>Az autóápolás művészete.</p></div>
+            <div class="lablec-kapcsolat"><h4>Kapcsolat</h4><p><i class="fa-solid fa-location-dot"></i> 1025 Budapest, Prémium utca 1.</p><p><i class="fa-solid fa-phone"></i> +36 30 123 4567</p></div>
+            <div class="lablec-kapcsolat"><h4>Jogi Információk</h4><p><a href="impresszum.html" style="color: #a0a0a0; text-decoration: none;">Impresszum</a></p><p><a href="adatvedelem.html" style="color: #a0a0a0; text-decoration: none;">Adatvédelmi tájékoztató</a></p><p><a href="suti_szabalyzat.html" style="color: #a0a0a0; text-decoration: none;">Süti szabályzat</a></p></div>
+        </div>
+        <div class="lablec-also kozepre"><p>&copy; 2026 Luxus Studios. Minden jog fenntartva.</p></div>
+    </footer>
+
+    <!-- Cookie Sáv -->
+    <div id="cookieBanner" style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: #1a1a1a; border-top: 2px solid #d4af37; padding: 20px; z-index: 9999; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; font-family: 'Playfair Display', serif; color: #f5f5f5;">
+        <p style="margin: 0; font-size: 0.95rem; max-width: 800px; color: #a0a0a0;">Weboldalunk sütiket használ a felhasználói élmény fokozása érdekében. Részletekért olvassa el a <a href="suti_szabalyzat.html" style="color: #d4af37; text-decoration: underline;">Süti Szabályzatot</a>.</p>
+        <div style="display: flex; gap: 10px;">
+            <button onclick="cookieKezeles('elutasitva')" style="background: transparent; color: #a0a0a0; border: 1px solid rgba(255,255,255,0.2); padding: 10px 20px; cursor: pointer; border-radius: 3px; font-family: 'Playfair Display', serif; text-transform: uppercase; font-size: 0.85rem;">Elutasítom</button>
+            <button onclick="cookieKezeles('elfogadva')" style="background-color: #d4af37; color: #0f0f0f; border: 2px solid #d4af37; padding: 10px 20px; cursor: pointer; border-radius: 3px; font-family: 'Playfair Display', serif; font-weight: bold; text-transform: uppercase; font-size: 0.85rem;">Elfogadom</button>
+        </div>
+    </div>
+    <script>
+        function cookieKezeles(dontes) { document.getElementById('cookieBanner').style.display = 'none'; localStorage.setItem('cookieDöntés', dontes); }
+        window.onload = function() { if(localStorage.getItem('cookieDöntés')) { document.getElementById('cookieBanner').style.display = 'none'; } }
+    </script>
+</body>
+</html>

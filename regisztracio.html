@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regisztráció | Luxus Studios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="fejlec">
+        <div class="fejlec-doboz kontener">
+            <a href="autokozmetika.html" class="logo"><i class="fa-solid fa-gem"></i> LUXUS <span>STUDIOS</span></a>
+            <nav class="navigacio">
+                <ul class="nav-lista">
+                    <li class="nav-elem"><a href="autokozmetika.html" class="nav-link">Főoldal</a></li>
+                    <li class="nav-elem"><a href="telephelyek.html" class="nav-link">Telephelyek</a></li>
+                    <li class="nav-elem"><a href="szakemberek.html" class="nav-link">Szakemberek</a></li>
+                    <li class="nav-elem"><a href="ajandekkartya.html" class="nav-link">Utalványok</a></li>
+                    <li class="nav-elem"><a href="foglalas.html" class="nav-link gomb gomb-elsodleges">Foglalás</a></li>
+                    <li class="nav-elem"><a href="ugyfelkapu.html" class="nav-link";"><i class="fa-solid fa-user"></i> Fiók</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="kontener terulet-padding">
+        <div style="max-width: 500px; margin: 0 auto;">
+            <div class="kozepre">
+                <h1 class="szekcio-cim">Fiók létrehozása</h1>
+                <div class="elvalaszto"></div>
+                <p style="color: #a0a0a0; margin-bottom: 30px;">Regisztráljon, hogy követhesse időpontjait és értesítéseit.</p>
+            </div>
+
+            <div style="background-color: #1a1a1a; padding: 40px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                <form id="regisztracioForm" onsubmit="regisztracioEllenorzes(event)">
+                    <div class="urlap-csoport">
+                        <label>E-mail cím</label>
+                        <input type="email" id="regEmail" class="urlap-mezoszam" required placeholder="pelda@email.hu">
+                    </div>
+                    <div class="urlap-csoport">
+                        <label>Jelszó</label>
+                        <input type="password" id="regJelszo1" class="urlap-mezoszam" required placeholder="••••••••">
+                    </div>
+                    <div class="urlap-csoport">
+                        <label>Jelszó megerősítése</label>
+                        <input type="password" id="regJelszo2" class="urlap-mezoszam" required placeholder="••••••••">
+                        <small id="jelszoHiba" style="color: #ff4d4d; display: none; margin-top: 5px;">A két jelszó nem egyezik meg!</small>
+                    </div>
+
+                    <!-- Nem vagyok robot / Captcha doboz -->
+                    <div class="urlap-csoport" style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <input type="checkbox" id="robotCheck" required style="width: 20px; height: 20px; accent-color: #d4af37; cursor: pointer;">
+                            <label for="robotCheck" style="margin: 0; color: white; cursor: pointer; font-size: 0.9rem;">Nem vagyok robot</label>
+                        </div>
+                        <i class="fa-solid fa-shield-halved" style="color: #d4af37; font-size: 1.5rem;"></i>
+                    </div>
+
+                    <button type="submit" class="gomb gomb-elsodleges" style="width: 100%; margin-top: 15px;">Regisztráció</button>
+
+                    <div style="text-align: center; margin-top: 20px; font-size: 0.85rem;">
+                        <a href="ugyfelkapu.html" style="color: #a0a0a0;"><i class="fa-solid fa-arrow-left"></i> Vissza a bejelentkezéshez</a>
+                    </div>
+                </form>
+
+                <div id="sikeresReg" style="display:none; text-align:center; padding:20px;">
+                    <i class="fa-solid fa-circle-check" style="font-size: 3rem; color: #4CAF50; margin-bottom: 15px;"></i>
+                    <h3 style="color:#d4af37; margin-bottom:10px;">Sikeres regisztráció!</h3>
+                    <p style="color:#a0a0a0; font-size:0.95rem; margin-bottom: 20px;">Fiókját létrehoztuk. Mostantól bejelentkezhet az Ügyfélkapun keresztül.</p>
+                    <a href="ugyfelkapu.html" class="gomb gomb-elsodleges">Ugrás a bejelentkezéshez</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="lablec">
+        <div class="kontener lablec-racs">
+            <div class="lablec-marka"><h3>Luxus Studios</h3><p>Az autóápolás művészete.</p></div>
+            <div class="lablec-kapcsolat"><h4>Kapcsolat</h4><p><i class="fa-solid fa-location-dot"></i> 1025 Budapest, Prémium utca 1.</p><p><i class="fa-solid fa-phone"></i> +36 30 123 4567</p></div>
+            <div class="lablec-kapcsolat"><h4>Jogi Információk</h4><p><a href="impresszum.html">Impresszum</a></p><p><a href="adatvedelem.html">Adatvédelmi tájékoztató</a></p><p><a href="suti_szabalyzat.html">Süti szabályzat</a></p></div>
+        </div>
+        <div class="lablec-also kozepre"><p>&copy; 2026 Luxus Studios. Minden jog fenntartva.</p></div>
+    </footer>
+
+    <script>
+        function regisztracioEllenorzes(e) {
+            e.preventDefault();
+            let j1 = document.getElementById('regJelszo1').value;
+            let j2 = document.getElementById('regJelszo2').value;
+            let hibaElem = document.getElementById('jelszoHiba');
+
+            if (j1 !== j2) {
+                hibaElem.style.display = 'block';
+                return;
+            }
+            hibaElem.style.display = 'none';
+
+            // Ha minden stimmel, mutatjuk a siker üzenetet
+            document.getElementById('regisztracioForm').style.display = 'none';
+            document.getElementById('sikeresReg').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+body { background-color: #0f0f0f; color: #f5f5f5; line-height: 1.6; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+.kontener { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.kozepre { text-align: center; }
+.terulet-padding { padding: 80px 0; }
+
+.fejlec { background-color: rgba(15, 15, 15, 0.95); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+.fejlec-doboz { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+.logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #d4af37; font-weight: 600; }
+.logo span { color: #f5f5f5; }
+.nav-lista { display: flex; gap: 30px; align-items: center; }
+.nav-link { color: #f5f5f5; font-weight: 500; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+.nav-link:hover, .nav-link.aktiv { color: #d4af37; }
+
+.gomb { padding: 12px 28px; border-radius: 3px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; cursor: pointer; display: inline-block; border: none; }
+.gomb-elsodleges { background-color: #d4af37; color: #0f0f0f; }
+
+.szekcio-cim { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #d4af37; }
+.elvalaszto { height: 3px; width: 60px; background-color: #d4af37; margin: 15px auto 40px; }
+
+.telephely-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 50px; }
+.telephely-kartya { background-color: #1a1a1a; padding: 40px 30px; border-radius: 5px; text-align: left; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+.telephely-kartya:hover { transform: translateY(-5px); border-color: #d4af37; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+
+.kartya-ikon { font-size: 2.5rem; color: #d4af37; margin-bottom: 15px; text-align: center; }
+.kartya-cim { font-size: 1.4rem; margin-bottom: 15px; text-align: center; font-family: 'Playfair Display', serif; color: #fff; }
+.kartya-szoveg { color: #a0a0a0; font-size: 0.95rem; margin-bottom: 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px; }
+
+.telephely-szakember-link { display: block; text-decoration: none; transition: 0.3s; }
+.telephely-szakember-link:hover .telephely-szakember-doboz { border-color: #d4af37; background: rgba(212, 175, 55, 0.05); }
+
+.telephely-szakember-doboz { background: rgba(255,255,255,0.02); padding: 15px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.04); transition: 0.3s; }
+.szakember-nev { font-weight: 600; font-size: 0.95rem; color: #f5f5f5; margin-bottom: 5px; }
+.szakember-tel { color: #d4af37; font-size: 0.9rem; font-weight: 500; }
+
+.lablec { background-color: #0a0a0a; padding: 60px 0 20px; border-top: 1px solid rgba(255,255,255,0.05); }
+.lablec-racs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; text-align: left; }
+.lablec-marka h3 { color: #d4af37; font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 15px; }
+.lablec-kapcsolat h4 { margin-bottom: 15px; }
+.lablec-kapcsolat p { color: #a0a0a0; margin-bottom: 10px; }
+.lablec-also { color: #a0a0a0; font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }

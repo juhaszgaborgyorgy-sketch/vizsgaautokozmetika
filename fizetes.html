@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prémium Fizetés | Luxus Studios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body style="background: url('kocsik.jfif') center/cover no-repeat; min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative;">
+
+    <!-- Sötétítő réteg a háttérkép felett -->
+    <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(11,11,11,0.95) 0%, rgba(11,11,11,0.8) 100%); z-index: 1;"></div>
+
+    <div class="fizetes-luxus-kontener" style="z-index: 2;">
+
+        <!-- Bal oldal: Rendelés Összegzése -->
+        <div class="fizetes-osszegzes">
+            <a href="autokozmetika.html" class="logo" style="margin-bottom: 30px; display: block;"><i class="fa-solid fa-gem"></i> LUXUS <span>STUDIOS</span></a>
+
+            <h2 style="font-family: 'Syne', sans-serif; font-size: 1.8rem; color: #fff; margin-bottom: 25px;">Rendelés összegzése</h2>
+
+            <div class="rendeles-tetel">
+                <div class="tetel-ikon"><i class="fa-solid fa-gift"></i></div>
+                <div class="tetel-adatok">
+                    <h4 id="kiirtUtalvany">Luxus Ajándékutalvány</h4>
+                    <p>Prémium szolgáltatásokra</p>
+                </div>
+            </div>
+
+            <div class="elvalaszto-vonal"></div>
+
+            <div class="osszesen-sor">
+                <span>Fizetendő összeg:</span>
+                <strong id="kiirtOsszeg" class="arany-szoveg">50 000 Ft</strong>
+            </div>
+
+            <div class="biztonsagi-jelvenyek">
+                <p><i class="fa-solid fa-shield-halved"></i> 256-bit SSL Titkosítás</p>
+                <p><i class="fa-solid fa-lock"></i> Biztonságos tranzakció</p>
+            </div>
+        </div>
+
+        <!-- Jobb oldal: Fizetési Űrlap -->
+        <div class="fizetes-urlap-resz">
+            <h3 style="font-family: 'Syne', sans-serif; font-size: 1.5rem; color: #fff; margin-bottom: 20px;">Bankkártya adatok</h3>
+
+            <div class="kartya-logok" style="margin-bottom: 25px; display: flex; gap: 10px; color: #a0a0a0; font-size: 1.5rem;">
+                <i class="fa-brands fa-cc-visa" style="color: #ffffff;"></i>
+                <i class="fa-brands fa-cc-mastercard" style="color: #ffffff;"></i>
+                <i class="fa-brands fa-cc-apple-pay"></i>
+            </div>
+
+            <form onsubmit="fizetesInditasa(event)">
+                <div class="urlap-csoport">
+                    <label>Kártyaszám</label>
+                    <div class="input-ikonnal">
+                        <i class="fa-regular fa-credit-card"></i>
+                        <input type="text" id="kartyaSzam" class="urlap-mezoszam" placeholder="0000-0000-0000-0000" maxlength="19" required autocomplete="cc-number">
+                    </div>
+                </div>
+
+                <div class="urlap-csoport">
+                    <label>Kártyabirtokos neve</label>
+                    <div class="input-ikonnal">
+                        <i class="fa-regular fa-user"></i>
+                        <input type="text" id="kartyaNev" class="urlap-mezoszam" placeholder="Pl. Szabó Béla" required autocomplete="cc-name">
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 15px;">
+                    <div class="urlap-csoport" style="flex: 1;">
+                        <label>Lejárat (HH/ÉÉ)</label>
+                        <div class="input-ikonnal">
+                            <i class="fa-regular fa-calendar"></i>
+                            <input type="text" id="kartyaLejarat" class="urlap-mezoszam" placeholder="12/28" maxlength="5" required autocomplete="cc-exp">
+                        </div>
+                    </div>
+
+                    <div class="urlap-csoport" style="flex: 1;">
+                        <label>CVC Kód</label>
+                        <div class="input-ikonnal">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="text" id="kartyaCvc" class="urlap-mezoszam" placeholder="123" maxlength="3" required autocomplete="cc-csc">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="gomb gomb-elsodleges" style="width: 100%; margin-top: 15px; font-size: 1rem; padding: 16px;">
+                    Fizetés jóváhagyása <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i>
+                </button>
+
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="ajandekkartya.html" style="color: #a0a0a0; font-size: 0.85rem; transition: 0.3s;"><i class="fa-solid fa-arrow-left"></i> Mégse és vissza az utalványokhoz</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            // URL paraméterek kiolvasása az összeghez
+            const urlParams = new URLSearchParams(window.location.search);
+            const ertek = urlParams.get('ertek');
+            if(ertek) {
+                document.getElementById('kiirtOsszeg').textContent = ertek;
+            }
+
+            // 1. Kártyaszám: csak számok, 4 karakterenként automatikus kötőjel (-)
+            const kartyaSzamInput = document.getElementById('kartyaSzam');
+            kartyaSzamInput.addEventListener('input', function (e) {
+                let value = e.target.value.replace(/\D/g, '');
+                let formattedValue = '';
+                for (let i = 0; i < value.length; i++) {
+                    if (i > 0 && i % 4 === 0) formattedValue += '-';
+                    formattedValue += value[i];
+                }
+                e.target.value = formattedValue;
+            });
+
+            // 2. Lejárati dátum: szigorú validáció (Hónap: 01-12, Év: min. 26)
+            const lejaratInput = document.getElementById('kartyaLejarat');
+            lejaratInput.addEventListener('input', function (e) {
+                let value = e.target.value.replace(/\D/g, '');
+
+                if (value.length >= 2) {
+                    let honap = parseInt(value.substring(0, 2));
+                    if (honap > 12) value = '12' + value.substring(2);
+                    else if (honap === 0) value = '01' + value.substring(2);
+                }
+
+                if (value.length >= 4) {
+                    let ev = parseInt(value.substring(2, 4));
+                    if (ev < 26) value = value.substring(0, 2) + '26';
+                }
+
+                let formattedValue = '';
+                for (let i = 0; i < value.length; i++) {
+                    if (i === 2) formattedValue += '/';
+                    formattedValue += value[i];
+                }
+                e.target.value = formattedValue;
+            });
+
+            // 3. CVC kód: csak számok
+            const cvcInput = document.getElementById('kartyaCvc');
+            cvcInput.addEventListener('input', function (e) {
+                e.target.value = e.target.value.replace(/\D/g, '');
+            });
+        };
+
+        function fizetesInditasa(e) {
+            e.preventDefault();
+            // Ellenőrzés, hogy minden ki van-e töltve
+            if(document.getElementById('kartyaSzam').value.length < 19) {
+                alert("Kérjük adja meg a teljes 16 jegyű kártyaszámot!");
+                return;
+            }
+            if(document.getElementById('kartyaCvc').value.length < 3) {
+                alert("A CVC kódnak 3 számjegyből kell állnia!");
+                return;
+            }
+
+            // Sikeres fizetés szimuláció, átirányítás a köszönő oldalra
+            let rendelesSzam = 'LUXUS-' + Math.floor(100000 + Math.random() * 900000);
+            window.location.href = `sikeres_vasarlas.html?rendeles=${rendelesSzam}`;
+        }
+    </script>
+</body>
+</html>

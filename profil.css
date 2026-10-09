@@ -1,0 +1,41 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+body { background-color: #0f0f0f; color: #f5f5f5; line-height: 1.6; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+.kontener { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.kozepre { text-align: center; }
+.terulet-padding { padding: 80px 0; }
+
+.fejlec { background-color: rgba(15, 15, 15, 0.95); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+.fejlec-doboz { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+.logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #d4af37; font-weight: 600; }
+.logo span { color: #f5f5f5; }
+.nav-lista { display: flex; gap: 30px; align-items: center; }
+.nav-link { color: #f5f5f5; font-weight: 500; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+.nav-link:hover, .nav-link.aktiv { color: #d4af37; }
+
+.gomb { padding: 12px 28px; border-radius: 3px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; cursor: pointer; display: inline-block; border: none; }
+.gomb-elsodleges { background-color: #d4af37; color: #0f0f0f; border: 2px solid #d4af37; }
+.gomb-elsodleges:hover { background-color: transparent; color: #d4af37; }
+
+.profil-hero { background: #1a1a1a; border-radius: 8px; padding: 40px; display: flex; gap: 40px; align-items: center; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 40px; }
+.profil-kep { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 3px solid #d4af37; }
+
+.velemeny-doboz { background: #1a1a1a; padding: 40px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 40px; }
+.velemeny-kartya { background: rgba(255,255,255,0.02); padding: 20px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px; text-align: left; }
+
+.urlap-csoport { margin-bottom: 25px; text-align: left; }
+.urlap-csoport label { display: block; margin-bottom: 10px; color: #a0a0a0; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+.urlap-mezoszam { width: 100%; padding: 14px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 4px; font-size: 1rem; }
+.urlap-mezoszam:focus { outline: none; border-color: #d4af37; }
+
+.lablec { background-color: #0a0a0a; padding: 60px 0 20px; border-top: 1px solid rgba(255,255,255,0.05); }
+.lablec-racs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; text-align: left; }
+.lablec-marka h3 { color: #d4af37; font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 15px; }
+.lablec-kapcsolat h4 { margin-bottom: 15px; }
+.lablec-kapcsolat p { color: #a0a0a0; margin-bottom: 10px; }
+.lablec-also { color: #a0a0a0; font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
+
+@media (max-width: 768px) {
+    .profil-hero { flex-direction: column; text-align: center; }
+}

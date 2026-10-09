@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juhász Gábor | Luxus Studios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="profil.css">
+</head>
+<body>
+    <header class="fejlec">
+        <div class="fejlec-doboz kontener">
+            <a href="autokozmetika.html" class="logo"><i class="fa-solid fa-gem"></i> LUXUS <span>STUDIOS</span></a>
+            <nav class="navigacio">
+                <ul class="nav-lista">
+                    <li class="nav-elem"><a href="autokozmetika.html" class="nav-link">Főoldal</a></li>
+                    <li class="nav-elem"><a href="telephelyek.html" class="nav-link">Telephelyek</a></li>
+                    <li class="nav-elem"><a href="szakemberek.html" class="nav-link">Szakemberek</a></li>
+                    <li class="nav-elem"><a href="ajandekkartya.html" class="nav-link aktiv">Utalványok</a></li>
+                    <li class="nav-elem"><a href="foglalas.html" class="nav-link gomb gomb-elsodleges">Foglalás</a></li>
+                    <li class="nav-elem"><a href="ugyfelkapu.html" class="nav-link" style="color: #d4af37;"><i class="fa-solid fa-user"></i> Fiók</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="kontener terulet-padding">
+        <div style="margin-bottom: 20px;"><a href="szakemberek.html" style="color: #d4af37; font-weight: 600;"><i class="fa-solid fa-arrow-left"></i> Vissza a szakemberekhez</a></div>
+        <section class="profil-hero">
+            <img src="https://media.anonyig.com/get?__sig=xZzX4jXssnRkB1cXSoXWkw&__expires=1790581020&uri=https%3A%2F%2Fscontent-muc2-1.cdninstagram.com%2Fv%2Ft51.82787-19%2F581886111_18413252368187510_4604491310978475809_n.jpg%3F_nc_cat%3D111%26ccb%3D7-5%26_nc_sid%3Dbf7eb4%26efg%3DeyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43NjYuQzMifQ%253D%253D%26_nc_ohc%3DXK4dfiQU-ccQ7kNvwHO7MDZ%26_nc_oc%3DAdoom9YTxiUECxtTLzH6BNeYnQFanxqV-ls5ZnCVdOX2QIgd_0JaNMr5_0VEHaj0wwA%26_nc_zt%3D24%26_nc_ht%3Dscontent-muc2-1.cdninstagram.com%26_nc_gid%3D1vJ2A16ttthvn4h44TunbQ%26_nc_ss%3D7e6a8%26oh%3D00_AQO8debCR4kBLzAEHMQbV-NvBNKL4fi4A4roKx4k9sAF5w%26oe%3D6ABFDA10&filename=581886111_18413252368187510_4604491310978475809_n.jpg" alt="Juhász Gábor" class="profil-kep">
+            <div>
+                <h1 style="font-family: 'Playfair Display', serif; color: #d4af37; font-size: 2.5rem; margin-bottom: 5px;">Juhász Gábor</h1>
+                <p style="color: #a0a0a0; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 15px;">Belső Tér Specialista</p>
+                <p style="color: #a0a0a0; margin-bottom: 20px;">5 év tapasztalat az exkluzív bőrápolásban, kárpittisztításban és a makulátlan higiénia visszaállításában a Pesti Központi Műhelyben.</p>
+                <a href="foglalas.html?szakember=juhasz_gabor" class="gomb gomb-elsodleges">Időpontfoglalás hozzá</a>
+            </div>
+        </section>
+        <section class="velemeny-doboz">
+            <h3 style="font-family: 'Playfair Display', serif; color: #d4af37; font-size: 1.5rem; margin-bottom: 20px;">Ügyfelek véleményei</h3>
+            <div id="velemenyekLista">
+                <div class="velemeny-kartya"><div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 600;"><span>Bóta Csilla</span><span style="color: #d4af37;">★★★★★</span></div><p style="color: #a0a0a0; font-size: 0.95rem;">A világos bőrüléseink újra olyanok, mintha most jöttek volna ki a szalonból.</p></div>
+            </div>
+            <h4 style="margin-top: 30px; margin-bottom: 15px; font-size: 1.1rem;">Írjon Ön is véleményt</h4>
+            <form action="velemeny_feldolgoz.php" method="POST">
+                <input type="hidden" name="szakember_id" value="juhasz_gabor">
+                <div class="urlap-csoport"><label>Az Ön neve</label><input type="text" name="nev" class="urlap-mezoszam" required></div>
+                <div class="urlap-csoport"><label>Vélemény</label><textarea name="szoveg" class="urlap-mezoszam" rows="3" required></textarea></div>
+                <button type="submit" class="gomb gomb-elsodleges" style="width:100%;">Elküldöm</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="lablec">
+        <div class="kontener lablec-racs">
+            <div class="lablec-marka"><h3>Luxus Studios</h3><p>Az autóápolás művészete.</p></div>
+            <div class="lablec-kapcsolat"><h4>Kapcsolat</h4><p><i class="fa-solid fa-location-dot"></i> 1025 Budapest, Prémium utca 1.</p><p><i class="fa-solid fa-phone"></i> +36 30 123 4567</p></div>
+            <div class="lablec-kapcsolat"><h4>Jogi Információk</h4><p><a href="impresszum.html" style="color: #a0a0a0; text-decoration: none;">Impresszum</a></p><p><a href="adatvedelem.html" style="color: #a0a0a0; text-decoration: none;">Adatvédelem</a></p><p><a href="suti_szabalyzat.html" style="color: #a0a0a0; text-decoration: none;">Süti szabályzat</a></p></div>
+        </div>
+        <div class="lablec-also kozepre"><p>&copy; 2026 Luxus Studios. Minden jog fenntartva.</p></div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Időpontfoglalás | Luxus Studios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="foglalas.css"> <!-- Itt használhatod a foglalas.css-t -->
+</head>
+<body>
+    <header class="fejlec">
+        <div class="fejlec-doboz kontener">
+            <a href="autokozmetika.html" class="logo"><i class="fa-solid fa-gem"></i> LUXUS <span>STUDIOS</span></a>
+            <nav class="navigacio">
+                <ul class="nav-lista">
+                    <li class="nav-elem"><a href="autokozmetika.html" class="nav-link">Főoldal</a></li>
+                    <li class="nav-elem"><a href="telephelyek.html" class="nav-link">Telephelyek</a></li>
+                    <li class="nav-elem"><a href="szakemberek.html" class="nav-link">Szakemberek</a></li>
+                    <li class="nav-elem"><a href="ajandekkartya.html" class="nav-link">Utalványok</a></li>
+                    <li class="nav-elem"><a href="foglalas.html" class="nav-link gomb gomb-elsodleges">Foglalás</a></li>
+                    <li class="nav-elem"><a href="ugyfelkapu.html" class="nav-link";"><i class="fa-solid fa-user"></i> Fiók</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="kontener terulet-padding kozepre">
+        <div>
+            <h1 class="szekcio-cim">Időpontfoglalás</h1>
+            <div class="elvalaszto"></div>
+            <p style="margin-bottom: 40px; color: #a0a0a0;">Válasszon szakembert és foglalja le időpontját online naptárunkon keresztül.</p>
+        </div>
+
+        <div class="foglalas-urlap">
+            <form id="foglalasForm" onsubmit="return veglegesitFoglalast(event)">
+                <div class="urlap-csoport">
+                    <label>Szakember kiválasztása</label>
+                    <select id="szakemberSelect" class="urlap-mezoszam" onchange="frissitSzolgaltatasokat()" required>
+                        <option value="">-- Válasszon Szakembert --</option>
+                        <option value="toth_zoltan">Tóth Zoltán (Vezető Polírozó)</option>
+                        <option value="juhasz_gabor">Juhász Gábor (Belső Tér Specialista)</option>
+                        <option value="lindner_szabolcs">Lindner Szabolcs (Kerámia Szakértő)</option>
+                    </select>
+                </div>
+                <div class="urlap-csoport">
+                    <label>Szolgáltatás</label>
+                    <select id="szolgaltatasSelect" class="urlap-mezoszam" onchange="mutatNaptarat()" required disabled>
+                        <option value="">-- Előbb válasszon szakembert --</option>
+                    </select>
+                </div>
+                <div id="naptarSzekcio" style="display: none; text-align: left; margin-top: 30px;">
+                    <label style="color: #d4af37; margin-bottom: 15px; display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Válasszon szabad napot</label>
+                    <div class="naptar-fejlec">
+                        <button type="button" class="gomb gomb-keret" style="padding: 6px 12px; font-size: 0.8rem;" onclick="valtsHonapot(-1)">&lt; Előző</button>
+                        <h3 id="aktualisHonapLabel" style="margin: 0; color:#fff; font-size: 1rem; font-family: 'Playfair Display', serif;">2026 Október</h3>
+                        <button type="button" class="gomb gomb-keret" style="padding: 6px 12px; font-size: 0.8rem;" onclick="valtsHonapot(1)">Következő &gt;</button>
+                    </div>
+                    <div class="jelmagyarazat">
+                        <div class="jel"><div class="jel-szin jel-szabad"></div> Szabad</div>
+                        <div class="jel"><div class="jel-szin jel-foglalt"></div> Betelt</div>
+                    </div>
+                    <div class="naptar-racs" id="naptarGrid"></div>
+                    <div id="idosavTarolo" style="display:none; margin-top:20px; border-top:1px solid rgba(255,255,255,0.05); padding-top:20px;">
+                        <label style="color: #d4af37; margin-bottom: 10px; display: block; font-size: 0.85rem; text-transform: uppercase;">Válasszon időpontot</label>
+                        <div class="idosav-racs" id="idosavGrid"></div>
+                    </div>
+                </div>
+                <input type="hidden" id="kivalasztottDatumH">
+                <input type="hidden" id="kivalasztottIdopontH">
+                <div class="urlap-csoport" style="margin-top: 30px;">
+                    <label>Ügyfél neve</label>
+                    <input type="text" id="ugyfelNev" class="urlap-mezoszam" placeholder="Adja meg a nevét..." required>
+                </div>
+                <button type="submit" class="gomb gomb-elsodleges" style="width: 100%; margin-top: 10px;">Foglalás elküldése</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="lablec">
+        <div class="kontener lablec-racs">
+            <div class="lablec-marka"><h3>Luxus Studios</h3><p>Az autóápolás művészete.</p></div>
+            <div class="lablec-kapcsolat"><h4>Kapcsolat</h4><p><i class="fa-solid fa-location-dot"></i> 1025 Budapest, Prémium utca 1.</p><p><i class="fa-solid fa-phone"></i> +36 30 123 4567</p></div>
+            <div class="lablec-kapcsolat"><h4>Jogi Információk</h4><p><a href="impresszum.html" style="color: #a0a0a0; text-decoration: none;">Impresszum</a></p><p><a href="adatvedelem.html" style="color: #a0a0a0; text-decoration: none;">Adatvédelem</a></p><p><a href="suti_szabalyzat.html" style="color: #a0a0a0; text-decoration: none;">Süti szabályzat</a></p></div>
+        </div>
+        <div class="lablec-also kozepre"><p>&copy; 2026 Luxus Studios. Minden jog fenntartva.</p></div>
+    </footer>
+
+    <script>
+        const szakemberAdatok = {
+            "toth_zoltan": { nev: "Tóth Zoltán", szolgaltatasok: [{ id: "pol_1", nev: "1 Lépcsős Polírozás" }, { id: "pol_3", nev: "3 Lépcsős Prémium Polírozás" }], foglaltNapok: [2, 5, 12, 14, 25, 26] },
+            "juhasz_gabor": { nev: "Juhász Gábor", szolgaltatasok: [{ id: "belso_alap", nev: "Alap Kozmetika" }, { id: "belso_prem", nev: "Prémium Bőr/Kárpittisztítás" }], foglaltNapok: [1, 8, 9, 15, 20, 22, 30] },
+            "lindner_szabolcs": { nev: "Lindner Szabolcs", szolgaltatasok: [{ id: "ker_1", nev: "1 Éves Védőbevonat" }, { id: "ker_3", nev: "3 Éves 9H Kerámia" }], foglaltNapok: [10, 11, 12, 13, 28, 29] }
+        };
+        const idosavokAlap = ["08:00", "10:00", "13:00", "15:00"];
+        let aktualisEv = 2026, aktualisHo = 9;
+        const honapNevek = ["Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December"];
+        let kivalasztottSzaki = null;
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const szakember = urlParams.get('szakember');
+            if(szakember && szakemberAdatok[szakember]) {
+                document.getElementById('szakemberSelect').value = szakember;
+                frissitSzolgaltatasokat();
+            }
+        };
+
+        function frissitSzolgaltatasokat() {
+            const szakiId = document.getElementById('szakemberSelect').value;
+            const szolgSelect = document.getElementById('szolgaltatasSelect');
+            document.getElementById('naptarSzekcio').style.display = 'none';
+            szolgSelect.innerHTML = '<option value="">-- Válasszon Szolgáltatást --</option>';
+            if (!szakiId) { szolgSelect.disabled = true; return; }
+            kivalasztottSzaki = szakemberAdatok[szakiId];
+            szolgSelect.disabled = false;
+            kivalasztottSzaki.szolgaltatasok.forEach(sz => {
+                const opt = document.createElement('option');
+                opt.value = sz.id; opt.textContent = sz.nev;
+                szolgSelect.appendChild(opt);
+            });
+        }
+        function mutatNaptarat() { if(document.getElementById('szolgaltatasSelect').value) { document.getElementById('naptarSzekcio').style.display = 'block'; generalNaptar(); } }
+        function valtsHonapot(irany) {
+            aktualisHo += irany;
+            if(aktualisHo > 11) { aktualisHo = 0; aktualisEv++; }
+            if(aktualisHo < 0) { aktualisHo = 11; aktualisEv--; }
+            document.getElementById('idosavTarolo').style.display = 'none';
+            generalNaptar();
+        }
+        function generalNaptar() {
+            document.getElementById('aktualisHonapLabel').textContent = aktualisEv + " " + honapNevek[aktualisHo];
+            const grid = document.getElementById('naptarGrid');
+            grid.innerHTML = '<div class="naptar-nap fejlec-nap">H</div><div class="naptar-nap fejlec-nap">K</div><div class="naptar-nap fejlec-nap">Sze</div><div class="naptar-nap fejlec-nap">Cs</div><div class="naptar-nap fejlec-nap">P</div><div class="naptar-nap fejlec-nap">Szo</div><div class="naptar-nap fejlec-nap">V</div>';
+            const elsoNapIndex = (new Date(aktualisEv, aktualisHo, 1).getDay() + 6) % 7;
+            const napokSzama = new Date(aktualisEv, aktualisHo + 1, 0).getDate();
+            for(let i = 0; i < elsoNapIndex; i++) grid.innerHTML += '<div></div>';
+            for(let i = 1; i <= napokSzama; i++) {
+                const div = document.createElement('div');
+                div.className = 'naptar-nap'; div.textContent = i;
+                if (kivalasztottSzaki.foglaltNapok.includes(i)) div.classList.add('foglalt');
+                else { div.classList.add('szabad'); div.onclick = function() { valasztDatumot(this, i); }; }
+                grid.appendChild(div);
+            }
+        }
+        function valasztDatumot(elem, nap) {
+            document.querySelectorAll('.naptar-nap').forEach(n => n.classList.remove('kivalasztva'));
+            elem.classList.add('kivalasztva');
+            document.getElementById('kivalasztottDatumH').value = `${aktualisEv}. ${honapNevek[aktualisHo]} ${nap}.`;
+            generalIdosavok(nap);
+        }
+        function generalIdosavok(nap) {
+            const grid = document.getElementById('idosavGrid');
+            grid.innerHTML = ""; document.getElementById('idosavTarolo').style.display = 'block';
+            idosavokAlap.forEach(ido => {
+                const btn = document.createElement('button');
+                btn.type = 'button'; btn.textContent = ido;
+                btn.className = 'idosav-gomb szabad';
+                btn.onclick = function() { valasztIdosavot(this, ido); };
+                grid.appendChild(btn);
+            });
+        }
+        function valasztIdosavot(elem, ido) {
+            document.querySelectorAll('.idosav-gomb').forEach(b => b.classList.remove('kivalasztva'));
+            elem.classList.add('kivalasztva');
+            document.getElementById('kivalasztottIdopontH').value = ido;
+        }
+        function veglegesitFoglalast(event) {
+            event.preventDefault();
+            const datum = document.getElementById('kivalasztottDatumH').value;
+            const ido = document.getElementById('kivalasztottIdopontH').value;
+            if(!datum || !ido) { alert("Válasszon szabad napot és időpontot!"); return false; }
+            alert(`Sikeres foglalás!\nNév: ${document.getElementById('ugyfelNev').value}\nIdőpont: ${datum} ${ido}`);
+            event.target.reset();
+            document.getElementById('naptarSzekcio').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
