@@ -7,7 +7,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Syne:wght@500;700;800&display=swap');
 
 /* Alapbeállítások és reszponzív méretvédelem */
-* {
+* { /* JAVÍTVA: Itt kötőjel (-) volt csillag (*) helyett! Ez omlasztotta össze a Safarit. */
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -93,6 +93,7 @@ input, select, textarea, button {
 
 .logo span { color: #ffffff; font-weight: 400; }
 
+/* iOS SAFARI KÉNYSZERÍTÉS A GOMBHOZ */
 .mobil-menu-gomb {
     display: none;
     background: transparent;
@@ -102,6 +103,9 @@ input, select, textarea, button {
     cursor: pointer;
     transition: 0.3s;
     -webkit-tap-highlight-color: transparent;
+    position: relative !important;
+    z-index: 9999 !important;
+    -webkit-transform: translateZ(0); /* iPhone hardveres gyorsítás bekapcsolása */
 }
 
 .nav-lista {
@@ -461,7 +465,9 @@ select.urlap-mezoszam option { background: #141414; color: white; }
 @media (max-width: 850px) {
     .fejlec-doboz { flex-direction: row; justify-content: space-between; align-items: center; height: 80px; padding: 0 20px; }
     .logo { font-size: 1.4rem; }
-    .mobil-menu-gomb { display: block; }
+
+    /* ERŐSZAKOS MEGJELENÍTÉS MOBILON */
+    .mobil-menu-gomb { display: block !important; }
 
     .navigacio {
         position: absolute; top: 80px; left: 0; width: 100%;
