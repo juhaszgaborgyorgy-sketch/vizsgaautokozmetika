@@ -2,7 +2,7 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Időpontfoglalás | Luxus Studios</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -41,7 +41,7 @@
         <div>
             <h1 class="szekcio-cim">Időpontfoglalás</h1>
             <div class="elvalaszto"></div>
-            <p style="margin-bottom: 40px; color: #a0a0a0;">Bemutató naptár: a kiválasztott időpont nem kerül mentésre. Valódi foglaláshoz kérjük, hívjon minket.</p>
+            <p style="margin-bottom: 40px; color: #a0a0a0;">A foglalás menete: válasszon szakembert, majd szolgáltatást, szabad napot és időpontot.</p>
         </div>
 
         <div class="foglalas-urlap">
@@ -80,9 +80,14 @@
                 </div>
                 <input type="hidden" id="kivalasztottDatumH">
                 <input type="hidden" id="kivalasztottIdopontH">
+                <p id="foglalasSiker" class="foglalas-visszajelzes" role="status" style="display:none;"></p>
                 <div class="urlap-csoport" style="margin-top: 30px;">
                     <label>Ügyfél neve</label>
-                    <input type="text" id="ugyfelNev" class="urlap-mezoszam" placeholder="Adja meg a nevét..." required>
+                    <input type="text" id="ugyfelNev" class="urlap-mezoszam" placeholder="Adja meg a nevét..." required autocomplete="name">
+                </div>
+                <div class="urlap-csoport">
+                    <label>E-mail cím</label>
+                    <input type="email" id="ugyfelEmail" class="urlap-mezoszam" placeholder="pelda@email.hu" required autocomplete="email">
                 </div>
                 <button type="submit" class="gomb gomb-elsodleges" style="width: 100%; margin-top: 10px;">Foglalás elküldése</button>
             </form>

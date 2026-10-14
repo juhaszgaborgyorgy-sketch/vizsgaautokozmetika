@@ -1,0 +1,6 @@
+Lépések a phpMyAdminban és XAMPP-ban
+1. Az XAMPP Control Panelben indítsd el a MySQL-t. Az Apache is fusson, hogy a phpMyAdmin elérhető legyen.
+2. A phpMyAdminban válaszd az Importálás fület. Tallózd be ezt a fájlt: [adatbazis.sql](C:/Users/007ga/PycharmProjects/vizsga/adatbazis.sql), majd nyomd meg az Importálás/Végrehajtás gombot. A fájl létrehozza a luxus_studios adatbázist és a szükséges táblákat; előtte nem kell külön adatbázist létrehoznod.
+3. Indítsd el a projekt mappájában a [start_local.bat](C:/Users/007ga/PycharmProjects/vizsga/start_local.bat) fájlt dupla kattintással. Hagyd nyitva a megjelenő ablakot, ez futtatja a PHP-szervert.
+4. Nyisd meg ezt a címet: http://127.0.0.1:8000/admin_setup.php. Itt hozd létre az első adminfiókot. Ez az oldal csak helyi gépről működik, és adminfiókot csak egyszer lehet létrehozni.
+5. A weboldalt innen használd: http://127.0.0.1:8000/autokozmetika.html. Regisztrálj vagy jelentkezz be a Fiók oldalon; az adminfiók belépése után megjelenik az Admin gomb.

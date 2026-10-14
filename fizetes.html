@@ -2,8 +2,8 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Prémium Fizetés | Luxus Studios</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajándékutalvány rendelése | Luxus Studios</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
@@ -25,59 +25,27 @@
             </div>
             <div class="elvalaszto-vonal"></div>
             <div class="osszesen-sor">
-                <span>Fizetendő összeg:</span>
+                <span>Utalvány értéke:</span>
                 <strong id="kiirtOsszeg" class="arany-szoveg">50 000 Ft</strong>
             </div>
             <div class="biztonsagi-jelvenyek">
-                <p><i class="fa-solid fa-shield-halved"></i> 256-bit SSL Titkosítás</p>
-                <p><i class="fa-solid fa-lock"></i> Biztonságos tranzakció</p>
+                <p><i class="fa-solid fa-gift"></i> Ajándékutalvány rendelése</p>
+                <p><i class="fa-solid fa-hashtag"></i> Egyedi rendelési azonosító</p>
             </div>
         </div>
 
         <div class="fizetes-urlap-resz">
-            <h3 style="font-family: 'Syne', sans-serif; font-size: 1.5rem; color: #fff; margin-bottom: 20px;">Bankkártya adatok</h3>
-            <p role="status" style="padding: 14px; margin-bottom: 20px; border: 1px solid #d4af37; color: #f5f5f5;">Bemutató oldal: valódi fizetés nincs beállítva. Ne adjon meg bankkártyaadatot.</p>
-            <div class="kartya-logok" style="margin-bottom: 25px; display: flex; gap: 10px; color: #a0a0a0; font-size: 1.5rem;">
-                <i class="fa-brands fa-cc-visa" style="color: #ffffff;"></i>
-                <i class="fa-brands fa-cc-mastercard" style="color: #ffffff;"></i>
-                <i class="fa-brands fa-cc-apple-pay"></i>
+            <h3 style="font-family: 'Syne', sans-serif; font-size: 1.5rem; color: #fff; margin-bottom: 20px;">Megrendelés adatai</h3>
+            <div class="rendeles-tetel" style="margin-bottom:20px;">
+                <div class="tetel-ikon"><i class="fa-solid fa-user"></i></div>
+                <div class="tetel-adatok"><h4>Megrendelő</h4><p id="rendeloEmail">—</p></div>
             </div>
             <form id="fizetesForm">
-                <div class="urlap-csoport">
-                    <label>Kártyaszám</label>
-                    <div class="input-ikonnal">
-                        <i class="fa-regular fa-credit-card"></i>
-                        <input type="text" id="kartyaSzam" class="urlap-mezoszam" placeholder="Fizetés nincs beállítva" disabled autocomplete="off">
-                    </div>
-                </div>
-                <div class="urlap-csoport">
-                    <label>Kártyabirtokos neve</label>
-                    <div class="input-ikonnal">
-                        <i class="fa-regular fa-user"></i>
-                        <input type="text" id="kartyaNev" class="urlap-mezoszam" placeholder="Fizetés nincs beállítva" disabled autocomplete="off">
-                    </div>
-                </div>
-                <div style="display: flex; gap: 15px;">
-                    <div class="urlap-csoport" style="flex: 1;">
-                        <label>Lejárat (HH/ÉÉ)</label>
-                        <div class="input-ikonnal">
-                            <i class="fa-regular fa-calendar"></i>
-                            <input type="text" id="kartyaLejarat" class="urlap-mezoszam" placeholder="—" disabled autocomplete="off">
-                        </div>
-                    </div>
-                    <div class="urlap-csoport" style="flex: 1;">
-                        <label>CVC Kód</label>
-                        <div class="input-ikonnal">
-                            <i class="fa-solid fa-lock"></i>
-                            <input type="text" id="kartyaCvc" class="urlap-mezoszam" placeholder="—" disabled autocomplete="off">
-                        </div>
-                    </div>
-                </div>
-                <button type="submit" class="gomb gomb-elsodleges" style="width: 100%; margin-top: 15px; font-size: 1rem; padding: 16px;" disabled>
-                    Fizetés jelenleg nem elérhető
+                <button type="submit" class="gomb gomb-elsodleges" style="width: 100%; margin-top: 15px; font-size: 1rem; padding: 16px;">
+                    Megrendelés véglegesítése
                 </button>
                 <div style="text-align: center; margin-top: 20px;">
-                    <a href="ajandekkartya.html" style="color: #a0a0a0; font-size: 0.85rem; transition: 0.3s;"><i class="fa-solid fa-arrow-left"></i> Mégse és vissza az utalványokhoz</a>
+                    <a href="ajandekkartya.html" style="color: #a0a0a0; font-size: 0.85rem; transition: 0.3s;"><i class="fa-solid fa-arrow-left"></i> Vissza az utalványokhoz</a>
                 </div>
             </form>
         </div>

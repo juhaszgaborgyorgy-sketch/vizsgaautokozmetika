@@ -2,7 +2,7 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fiók | Luxus Studios</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -43,17 +43,18 @@
             <div class="kozepre">
                 <h1 class="szekcio-cim">Bejelentkezés</h1>
                 <div class="elvalaszto"></div>
-                <p style="color: #a0a0a0; margin-bottom: 30px;">A fiók funkció jelenleg bemutató, valódi bejelentkezés még nem érhető el.</p>
+                <p style="color: #a0a0a0; margin-bottom: 30px;">Jelentkezzen be a foglalásai megtekintéséhez.</p>
             </div>
             <div class="kartya-sotet">
                 <form id="bejelentkezesForm">
+                    <p id="loginError" style="display:none; color:#ff7777; margin-bottom:18px;" role="alert"></p>
                     <div class="urlap-csoport">
                         <label>E-mail cím</label>
-                        <input type="email" class="urlap-mezoszam" autocomplete="username" required>
+                        <input type="email" id="belepEmail" class="urlap-mezoszam" autocomplete="username" required>
                     </div>
                     <div class="urlap-csoport">
                         <label>Jelszó</label>
-                        <input type="password" class="urlap-mezoszam" autocomplete="current-password" required>
+                        <input type="password" id="belepJelszo" class="urlap-mezoszam" autocomplete="current-password" required>
                     </div>
                     <button type="submit" class="gomb gomb-elsodleges" style="width: 100%;">Belépés a fiókba</button>
                     <p style="text-align: center; margin-top: 20px; font-size: 0.85rem; color: #a0a0a0;">Nincs még fiókja? <a href="regisztracio.html" style="color: #d4af37; text-decoration: underline;">Regisztráljon itt!</a></p>
@@ -63,44 +64,37 @@
 
         <!-- ÜGYFÉL VEZÉRLŐPULT -->
         <div id="vezerlopultSzekcio" style="display: none;">
-            <p role="note" style="color: #d4af37; margin-bottom: 20px;">Az alábbi vezérlőpult mintaadatokat tartalmaz, valódi ügyfélfiókhoz nem kapcsolódik.</p>
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px;">
-                <h1 class="szekcio-cim" style="font-size: 2rem;">Üdvözöljük, Szabó Béla!</h1>
-                <button id="btnKijelentkezes" class="gomb gomb-keret" style="padding: 8px 15px; font-size: 0.8rem;"><i class="fa-solid fa-right-from-bracket"></i> Kijelentkezés</button>
+                <h1 class="szekcio-cim" id="felhasznaloKoszontese" style="font-size: 2rem;">Üdvözöljük!</h1>
+                <div style="display:flex;align-items:center;gap:12px;">
+                    <a id="adminLink" href="admin.html" class="gomb gomb-keret" style="display:none;padding:8px 15px;font-size:.8rem;"><i class="fa-solid fa-screwdriver-wrench"></i> Admin</a>
+                    <button id="btnKijelentkezes" class="gomb gomb-keret" style="padding: 8px 15px; font-size: 0.8rem;"><i class="fa-solid fa-right-from-bracket"></i> Kijelentkezés</button>
+                </div>
             </div>
 
             <div class="vezerlopult-racs">
                 <div>
                     <div class="kartya-sotet" style="margin-bottom: 30px;">
                         <h3 style="color: #d4af37; margin-bottom: 15px; font-family: 'Playfair Display', serif;"><i class="fa-solid fa-car"></i> Regisztrált Gépjármű</h3>
-                        <p><strong>Típus:</strong> BMW 320d (Sötétkék)</p>
-                        <p><strong>Rendszám:</strong> AA-BB-123</p>
-                        <p><strong>Utolsó látogatás:</strong> 2025. 11. 10.</p>
+                        <p><strong>Típus:</strong> <span id="ugyfelAuto">Még nincs megadva</span></p>
+                        <p><strong>Rendszám:</strong> <span id="ugyfelRendszam">—</span></p>
+                        <p><strong>Foglalások:</strong> <span id="foglalasokSzama">0</span></p>
+                        <form id="autoForm" style="margin-top:20px;">
+                            <div class="urlap-csoport"><label>Autó típusa</label><input id="autoTipusInput" class="urlap-mezoszam" placeholder="Például BMW 320d"></div>
+                            <div class="urlap-csoport"><label>Rendszám</label><input id="autoRendszamInput" class="urlap-mezoszam" placeholder="ABC-123"></div>
+                            <button type="submit" class="gomb gomb-keret">Járműadatok mentése</button>
+                        </form>
                     </div>
                     <a href="foglalas.html" class="gomb gomb-elsodleges" style="width: 100%; text-align: center;"><i class="fa-solid fa-calendar-plus"></i> Új időpont foglalása</a>
                 </div>
                 <div>
                     <div class="kartya-sotet" style="margin-bottom: 30px;">
-                        <h3 style="color: #d4af37; margin-bottom: 15px; font-family: 'Playfair Display', serif;"><i class="fa-solid fa-calendar-check"></i> Aktuális Foglalás</h3>
-                        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 4px; border-left: 4px solid #d4af37;">
-                            <div>
-                                <h4 style="margin-bottom: 5px;">3 Lépcsős Prémium Polírozás</h4>
-                                <p style="color: #a0a0a0; font-size: 0.9rem;"><i class="fa-solid fa-user-tie"></i> Tóth Zoltán</p>
-                                <p style="color: #a0a0a0; font-size: 0.9rem;"><i class="fa-solid fa-clock"></i> 2026. Október 15. - 08:00</p>
-                            </div>
-                            <button class="gomb gomb-keret" style="border-color: #ff4d4d; color: #ff4d4d; padding: 6px 12px; font-size: 0.8rem;">Lemondás</button>
-                        </div>
+                        <h3 style="color: #d4af37; margin-bottom: 15px; font-family: 'Playfair Display', serif;"><i class="fa-solid fa-calendar-check"></i> Foglalásaim</h3>
+                        <div id="ugyfelFoglalasLista"></div>
                     </div>
 
                     <h3 style="color: #d4af37; margin-bottom: 15px; font-family: 'Playfair Display', serif;"><i class="fa-solid fa-bell"></i> Rendszerüzenetek & Értesítések</h3>
-                    <div class="ertesites zold">
-                        <strong style="color: #4CAF50;"><i class="fa-solid fa-check-circle"></i> Felszabadult időpont!</strong>
-                        <p style="font-size: 0.9rem; color: #a0a0a0; margin-top: 5px;">Juhász Gábornál felszabadult egy "Belső Mélytisztítás" időpont holnap 13:00-ra. Szeretné lefoglalni?</p>
-                    </div>
-                    <div class="ertesites piros">
-                        <strong style="color: #ff4d4d;"><i class="fa-solid fa-circle-exclamation"></i> Változás a nyitvatartásban</strong>
-                        <p style="font-size: 0.9rem; color: #a0a0a0; margin-top: 5px;">Tisztelt Ügyfelünk! Október 23-án stúdiónk zárva tart.</p>
-                    </div>
+                    <div id="ugyfelUzenetek" class="ertesites">Jelenleg nincs új rendszerüzenet.</div>
                 </div>
             </div>
         </div>

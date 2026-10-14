@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adminisztráció | Luxus Studios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <script src="admin.js" defer></script>
+    <style>
+        .admin-panel{padding:26px;background:#171717;border:1px solid rgba(212,175,55,.18);border-radius:10px;margin:24px 0;overflow-x:auto}
+        .admin-table{width:100%;border-collapse:collapse;min-width:720px;text-align:left}
+        .admin-table th,.admin-table td{padding:13px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top}
+        .admin-table th{color:#d4af37;font-size:.8rem;text-transform:uppercase;letter-spacing:.08em}
+        .admin-table td{color:#ddd;font-size:.92rem}
+        .admin-status{padding:8px;background:#222;color:#eee;border:1px solid #444;border-radius:4px}
+        .admin-delete{padding:8px 12px;color:#ffaaaa;border:1px solid #7a3b3b;background:transparent;border-radius:4px;cursor:pointer}
+        #adminMessage{padding:14px;border-left:3px solid #d4af37;background:rgba(212,175,55,.08);margin:20px 0}
+        @media(max-width:600px){.admin-panel{padding:16px}.admin-table{min-width:650px}}
+    </style>
+</head>
+<body class="aloldal-hatter">
+    <div class="hatter-sotetito"></div>
+    <header class="fejlec"><div class="fejlec-doboz kontener">
+        <a href="autokozmetika.html" class="logo">LUXUS <span>STUDIOS</span></a>
+        <a href="ugyfelkapu.html" class="nav-link">Fiók</a>
+    </div></header>
+    <main class="kontener terulet-padding">
+        <h1 class="szekcio-cim">Adminisztráció</h1><div class="elvalaszto"></div>
+        <p id="adminMessage" role="status">Adatok betöltése…</p>
+        <section class="admin-panel"><h2 class="kartya-cim">Foglalások</h2><table class="admin-table"><thead><tr><th>Dátum, idő</th><th>Ügyfél</th><th>Szolgáltatás</th><th>Szakember</th><th>Művelet</th></tr></thead><tbody id="adminBookings"></tbody></table></section>
+        <section class="admin-panel"><h2 class="kartya-cim">Utalványrendelések</h2><table class="admin-table"><thead><tr><th>Azonosító</th><th>Dátum</th><th>Megajándékozott</th><th>Összeg</th><th>Állapot</th></tr></thead><tbody id="adminOrders"></tbody></table></section>
+        <section class="admin-panel"><h2 class="kartya-cim">Vélemények</h2><table class="admin-table"><thead><tr><th>Dátum</th><th>Szakember</th><th>Név</th><th>Vélemény</th><th>Művelet</th></tr></thead><tbody id="adminReviews"></tbody></table></section>
+    </main>
+</body>
+</html>

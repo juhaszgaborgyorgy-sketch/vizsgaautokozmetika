@@ -2,7 +2,7 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Regisztráció | Luxus Studios</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -42,31 +42,27 @@
             <div class="kozepre">
                 <h1 class="szekcio-cim">Fiók létrehozása</h1>
                 <div class="elvalaszto"></div>
-                <p style="color: #a0a0a0; margin-bottom: 30px;">A regisztráció jelenleg bemutató, valódi fiók még nem hozható létre.</p>
+                <p style="color: #a0a0a0; margin-bottom: 30px;">Hozza létre fiókját a foglalások egyszerű kezeléséhez.</p>
             </div>
 
             <div class="kartya-sotet">
                 <form id="regisztracioForm">
                     <div class="urlap-csoport">
+                        <label>Teljes név</label>
+                        <input type="text" id="regNev" class="urlap-mezoszam" required autocomplete="name" placeholder="Kovács Anna">
+                    </div>
+                    <div class="urlap-csoport">
                         <label>E-mail cím</label>
-                        <input type="email" id="regEmail" class="urlap-mezoszam" required placeholder="pelda@email.hu">
+                        <input type="email" id="regEmail" class="urlap-mezoszam" required autocomplete="email" placeholder="pelda@email.hu">
                     </div>
                     <div class="urlap-csoport">
                         <label>Jelszó</label>
-                        <input type="password" id="regJelszo1" class="urlap-mezoszam" required placeholder="••••••••">
+                        <input type="password" id="regJelszo1" class="urlap-mezoszam" required minlength="8" autocomplete="new-password" placeholder="Legalább 8 karakter">
                     </div>
                     <div class="urlap-csoport">
                         <label>Jelszó megerősítése</label>
-                        <input type="password" id="regJelszo2" class="urlap-mezoszam" required placeholder="••••••••">
+                        <input type="password" id="regJelszo2" class="urlap-mezoszam" required minlength="8" autocomplete="new-password" placeholder="Jelszó ismét">
                         <small id="jelszoHiba" style="color: #ff4d4d; display: none; margin-top: 5px;">A két jelszó nem egyezik meg!</small>
-                    </div>
-
-                    <div class="urlap-csoport captcha-doboz">
-                        <div style="display: flex; align-items: center; gap: 12px;">
-                            <input type="checkbox" id="robotCheck" required class="captcha-checkbox">
-                            <label for="robotCheck" style="margin: 0; color: white; cursor: pointer; font-size: 0.9rem;">Nem vagyok robot</label>
-                        </div>
-                        <i class="fa-solid fa-shield-halved" style="color: #d4af37; font-size: 1.5rem;"></i>
                     </div>
 
                     <button type="submit" class="gomb gomb-elsodleges" style="width: 100%; margin-top: 15px;">Regisztráció</button>

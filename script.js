@@ -1,298 +1,264 @@
 document.addEventListener('DOMContentLoaded', () => {
+    let csrfToken = '';
+    const api = async (action, data = null) => {
+        const separator = action.indexOf('&');
+        const actionName = separator === -1 ? action : action.slice(0, separator);
+        const query = separator === -1 ? '' : action.slice(separator + 1);
+        const options = { credentials: 'same-origin', headers: {} };
+        if (data !== null) {
+            if (!csrfToken) csrfToken = (await api('csrf')).csrf;
+            options.method = 'POST';
+            options.headers = { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken };
+            options.body = JSON.stringify(data);
+        }
+        const response = await fetch(`api.php?action=${encodeURIComponent(actionName)}${query ? `&${query}` : ''}`, options);
+        const responseText = await response.text();
+        let result;
+        try { result = JSON.parse(responseText); }
+        catch {
+            throw new Error('A PHP szerver nem JSON választ adott. Nyisd meg az oldalt a start_local.bat indítása után a http://127.0.0.1:8000 címen.');
+        }
+        if (!response.ok) throw new Error(result.error || 'A művelet nem sikerült.');
+        return result;
+    };
+    const showError = (element, message) => {
+        if (!element) { alert(message); return; }
+        element.textContent = message;
+        element.style.display = 'block';
+    };
+    const staff = {
+        toth_zoltan: { name: 'Tóth Zoltán', services: [{ id: 'pol_1', name: '1 Lépcsős Polírozás' }, { id: 'pol_3', name: '3 Lépcsős Prémium Polírozás' }] },
+        juhasz_gabor: { name: 'Juhász Gábor', services: [{ id: 'belso_alap', name: 'Alap Kozmetika' }, { id: 'belso_prem', name: 'Prémium Bőr/Kárpittisztítás' }] },
+        lindner_szabolcs: { name: 'Lindner Szabolcs', services: [{ id: 'ker_1', name: '1 Éves Védőbevonat' }, { id: 'ker_3', name: '3 Éves 9H Kerámia' }] }
+    };
+    const slots = ['08:00', '10:00', '13:00', '15:00'];
 
-    // 1. MOBIL HAMBURGER MENÜ (Minden oldalon fut)
-    const menuGomb = document.getElementById('mobilMenugomb');
+    const menuButton = document.getElementById('mobilMenugomb');
     const menu = document.getElementById('fomenu');
-    if (menuGomb && menu) {
-        menuGomb.addEventListener('click', () => {
-            menu.classList.toggle('nyitva');
-            const ikon = menuGomb.querySelector('i');
-            if (menu.classList.contains('nyitva')) {
-                ikon.classList.replace('fa-bars', 'fa-xmark');
-            } else {
-                ikon.classList.replace('fa-xmark', 'fa-bars');
-            }
-        });
-    }
-
-    // 2. ELŐTTE-UTÁNA CSÚSZKA (Csak a főoldalon)
-    const csuszka = document.getElementById('polirCsuszka');
-    const elozoNezet = document.getElementById('elozoNezet');
-    if (csuszka && elozoNezet) {
-        csuszka.addEventListener('input', (e) => {
-            elozoNezet.style.width = e.target.value + '%';
-        });
-    }
-
-    // 3. GYIK (AKORDEON) (Csak a főoldalon)
-    const gyikKerdesek = document.querySelectorAll('.gyik-kerdes');
-    gyikKerdesek.forEach(kerdes => {
-        kerdes.addEventListener('click', function() {
-            this.parentElement.classList.toggle('nyitva');
-        });
+    if (menuButton && menu) menuButton.addEventListener('click', () => {
+        const open = menu.classList.toggle('nyitva');
+        menuButton.setAttribute('aria-expanded', String(open));
+        const icon = menuButton.querySelector('i');
+        if (icon) icon.className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
     });
 
-    // 4. PRÉMIUM SZAKEMBER VÁLASZTÓ ÉS ÁRLISTA (Csak a főoldalon)
-    const szakemberOpcionk = document.querySelectorAll('.szakember-opcio');
-    const arlistaRacs = document.getElementById('arlistaRacs');
-    const arlistaKartyak = document.querySelectorAll('.arlista-kartya');
+    const slider = document.getElementById('polirCsuszka');
+    const beforeImage = document.getElementById('elozoNezet');
+    if (slider && beforeImage) slider.addEventListener('input', event => beforeImage.style.width = `${event.target.value}%`);
+    document.querySelectorAll('.gyik-kerdes').forEach(question => question.addEventListener('click', () => question.parentElement.classList.toggle('nyitva')));
+    const staffCards = document.querySelectorAll('.szakember-opcio');
+    const priceGrid = document.getElementById('arlistaRacs');
+    if (staffCards.length) staffCards.forEach(card => card.addEventListener('click', () => {
+        const selected = card.dataset.valasztott;
+        staffCards.forEach(item => item.classList.toggle('aktiv', item === card));
+        if (priceGrid) priceGrid.style.display = 'flex';
+        document.querySelectorAll('.arlista-kartya').forEach(item => item.style.display = item.dataset.szakember === selected ? 'block' : 'none');
+    }));
 
-    if (szakemberOpcionk.length > 0) {
-        szakemberOpcionk.forEach(opcio => {
-            opcio.addEventListener('click', function() {
-                const kivalasztott = this.getAttribute('data-valasztott');
-
-                szakemberOpcionk.forEach(k => k.classList.remove('aktiv'));
-                this.classList.add('aktiv');
-
-                if (arlistaRacs) arlistaRacs.style.display = 'flex';
-
-                arlistaKartyak.forEach(kartya => {
-                    if (kartya.getAttribute('data-szakember') === kivalasztott) {
-                        kartya.style.display = 'block';
-                        kartya.style.animation = 'none';
-                        kartya.offsetHeight;
-                        kartya.style.animation = 'beuszas 0.5s ease forwards';
-                    } else {
-                        kartya.style.display = 'none';
-                    }
-                });
+    // Fiók és admin jogosultság
+    const loginForm = document.getElementById('bejelentkezesForm');
+    const loginSection = document.getElementById('bejelentkezoSzekcio');
+    const dashboard = document.getElementById('vezerlopultSzekcio');
+    const loginError = document.getElementById('loginError');
+    const renderDashboard = async () => {
+        if (!dashboard) return;
+        try {
+            const { user } = await api('me');
+            if (!user) return;
+            loginSection.style.display = 'none';
+            dashboard.style.display = 'block';
+            document.getElementById('felhasznaloKoszontese').textContent = `Üdvözöljük, ${user.name}!`;
+            const adminLink = document.getElementById('adminLink');
+            if (adminLink) adminLink.style.display = Number(user.admin) ? 'inline-flex' : 'none';
+            const [{ bookings }, { car }] = await Promise.all([api('bookings'), api('car')]);
+            document.getElementById('ugyfelAuto').textContent = car?.type || 'Még nincs megadva';
+            document.getElementById('ugyfelRendszam').textContent = car?.plate || '—';
+            document.getElementById('autoTipusInput').value = car?.type || '';
+            document.getElementById('autoRendszamInput').value = car?.plate || '';
+            document.getElementById('foglalasokSzama').textContent = String(bookings.length);
+            const list = document.getElementById('ugyfelFoglalasLista');
+            list.replaceChildren();
+            if (!bookings.length) list.innerHTML = '<p style="color:#a0a0a0">Még nincs aktív foglalása.</p>';
+            bookings.forEach(item => {
+                const row = document.createElement('div');
+                row.className = 'ugyfel-foglalas-kartya';
+                const detail = document.createElement('div');
+                const heading = document.createElement('h4'); heading.textContent = item.serviceName;
+                const text = document.createElement('p'); text.textContent = `${staff[item.staffId]?.name || item.staffId} · ${item.date} · ${item.time}`;
+                detail.append(heading, text);
+                const cancel = document.createElement('button'); cancel.type = 'button'; cancel.className = 'gomb gomb-keret'; cancel.textContent = 'Lemondás';
+                cancel.addEventListener('click', async () => { try { await api('booking_cancel', { id: item.id }); await renderDashboard(); } catch (error) { showError(loginError, error.message); } });
+                row.append(detail, cancel); list.appendChild(row);
             });
-        });
-    }
+        } catch (error) { showError(loginError, error.message); }
+    };
+    if (loginForm) loginForm.addEventListener('submit', async event => {
+        event.preventDefault();
+        loginError.style.display = 'none';
+        try {
+            await api('login', { email: document.getElementById('belepEmail').value.trim(), password: document.getElementById('belepJelszo').value });
+            await renderDashboard();
+        } catch (error) { showError(loginError, error.message); }
+    });
+    const logout = document.getElementById('btnKijelentkezes');
+    if (logout) logout.addEventListener('click', async () => {
+        try { await api('logout', {}); csrfToken = ''; dashboard.style.display = 'none'; loginSection.style.display = 'block'; loginForm.reset(); }
+        catch (error) { showError(loginError, error.message); }
+    });
+    if (dashboard) renderDashboard();
 
-    // 5. COOKIE SÁV KEZELÉSE (Minden oldalon fut)
-    const cookieBanner = document.getElementById('cookieBanner');
-    const btnElfogad = document.getElementById('btnCookieElfogad');
-    const btnElutasit = document.getElementById('btnCookieElutasit');
+    const registerForm = document.getElementById('regisztracioForm');
+    if (registerForm) registerForm.addEventListener('submit', async event => {
+        event.preventDefault();
+        const name = document.getElementById('regNev').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const password = document.getElementById('regJelszo1').value;
+        const error = document.getElementById('jelszoHiba');
+        error.style.display = 'none';
+        if (password !== document.getElementById('regJelszo2').value) { showError(error, 'A két jelszó nem egyezik meg.'); return; }
+        try {
+            await api('register', { name, email, password });
+            registerForm.style.display = 'none';
+            document.getElementById('sikeresReg').style.display = 'block';
+        } catch (reason) { showError(error, reason.message); }
+    });
 
-    if (cookieBanner) {
-        if (!localStorage.getItem('cookieDöntés')) {
-            cookieBanner.style.display = 'flex';
-        }
+    const carForm = document.getElementById('autoForm');
+    if (carForm) carForm.addEventListener('submit', async event => {
+        event.preventDefault();
+        try {
+            await api('car_save', { type: document.getElementById('autoTipusInput').value.trim(), plate: document.getElementById('autoRendszamInput').value.trim() });
+            await renderDashboard();
+        } catch (error) { showError(loginError, error.message); }
+    });
 
-        const cookieKezeles = (dontes) => {
-            cookieBanner.style.display = 'none';
-            localStorage.setItem('cookieDöntés', dontes);
+    // Szerveroldali foglalási naptár
+    const staffSelect = document.getElementById('szakemberSelect');
+    if (staffSelect) {
+        const serviceSelect = document.getElementById('szolgaltatasSelect');
+        const calendar = document.getElementById('naptarSzekcio');
+        const dateInput = document.getElementById('kivalasztottDatumH');
+        const timeInput = document.getElementById('kivalasztottIdopontH');
+        const months = ['Január', 'Február', 'Március', 'Április', 'Május', 'Június', 'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December'];
+        const today = new Date(); let year = today.getFullYear(); let month = today.getMonth();
+        let chosenStaff = null; let monthAvailability = {};
+        const dateKey = (y, m, d) => `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+        const clearSelection = () => { dateInput.value = ''; timeInput.value = ''; document.getElementById('idosavGrid').replaceChildren(); document.getElementById('idosavTarolo').style.display = 'none'; };
+        const loadAvailability = async () => {
+            const result = await api(`availability_month&staff_id=${encodeURIComponent(staffSelect.value)}&month=${year}-${String(month + 1).padStart(2, '0')}`);
+            monthAvailability = result.booked;
         };
-
-        if (btnElfogad) btnElfogad.addEventListener('click', () => cookieKezeles('elfogadva'));
-        if (btnElutasit) btnElutasit.addEventListener('click', () => cookieKezeles('elutasitva'));
-    }
-
-    // 6. FIZETÉSI OLDAL LOGIKA (Csak a fizetes.html-en)
-    const urlParams = new URLSearchParams(window.location.search);
-    const ertek = urlParams.get('ertek');
-    const kiirtOsszeg = document.getElementById('kiirtOsszeg');
-    if (ertek && kiirtOsszeg) {
-        kiirtOsszeg.textContent = ertek;
-    }
-
-    const kartyaSzamInput = document.getElementById('kartyaSzam');
-    if (kartyaSzamInput) {
-        kartyaSzamInput.addEventListener('input', function (e) {
-            let value = e.target.value.replace(/\D/g, '');
-            let formattedValue = '';
-            for (let i = 0; i < value.length; i++) {
-                if (i > 0 && i % 4 === 0) formattedValue += '-';
-                formattedValue += value[i];
-            }
-            e.target.value = formattedValue;
-        });
-    }
-
-    const lejaratInput = document.getElementById('kartyaLejarat');
-    if (lejaratInput) {
-        lejaratInput.addEventListener('input', function (e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length >= 2) {
-                let honap = parseInt(value.substring(0, 2));
-                if (honap > 12) value = '12' + value.substring(2);
-                else if (honap === 0) value = '01' + value.substring(2);
-            }
-            if (value.length >= 4) {
-                let ev = parseInt(value.substring(2, 4));
-                if (ev < 26) value = value.substring(0, 2) + '26';
-            }
-            let formattedValue = '';
-            for (let i = 0; i < value.length; i++) {
-                if (i === 2) formattedValue += '/';
-                formattedValue += value[i];
-            }
-            e.target.value = formattedValue;
-        });
-    }
-
-    const cvcInput = document.getElementById('kartyaCvc');
-    if (cvcInput) {
-        cvcInput.addEventListener('input', function (e) {
-            e.target.value = e.target.value.replace(/\D/g, '');
-        });
-    }
-
-    const fizetesForm = document.getElementById('fizetesForm');
-    if (fizetesForm) {
-        fizetesForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Ez az oldal jelenleg csak bemutató. Ne adjon meg bankkártyaadatot; valódi fizetés még nincs beállítva.');
-        });
-    }
-
-    // 7. IDŐPONTFOGLALÁS NAPTÁR LOGIKA (Csak a foglalas.html-en)
-    const szakemberSelect = document.getElementById('szakemberSelect');
-    if (szakemberSelect) {
-        const szakemberAdatok = {
-            "toth_zoltan": { nev: "Tóth Zoltán", szolgaltatasok: [{ id: "pol_1", nev: "1 Lépcsős Polírozás" }, { id: "pol_3", nev: "3 Lépcsős Prémium Polírozás" }], foglaltNapok: [2, 5, 12, 14, 25, 26] },
-            "juhasz_gabor": { nev: "Juhász Gábor", szolgaltatasok: [{ id: "belso_alap", nev: "Alap Kozmetika" }, { id: "belso_prem", nev: "Prémium Bőr/Kárpittisztítás" }], foglaltNapok: [1, 8, 9, 15, 20, 22, 30] },
-            "lindner_szabolcs": { nev: "Lindner Szabolcs", szolgaltatasok: [{ id: "ker_1", nev: "1 Éves Védőbevonat" }, { id: "ker_3", nev: "3 Éves 9H Kerámia" }], foglaltNapok: [10, 11, 12, 13, 28, 29] }
-        };
-        const idosavokAlap = ["08:00", "10:00", "13:00", "15:00"];
-        const ma = new Date();
-        let aktualisEv = ma.getFullYear(), aktualisHo = ma.getMonth();
-        const honapNevek = ["Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December"];
-        let kivalasztottSzaki = null;
-
-        const szakemberParam = urlParams.get('szakember');
-        if (szakemberParam && szakemberAdatok[szakemberParam]) {
-            szakemberSelect.value = szakemberParam;
-            frissitSzolgaltatasokat();
-        }
-
-        szakemberSelect.addEventListener('change', frissitSzolgaltatasokat);
-
-        const szolgSelect = document.getElementById('szolgaltatasSelect');
-        szolgSelect.addEventListener('change', () => {
-            if (szolgSelect.value) {
-                document.getElementById('naptarSzekcio').style.display = 'block';
-                generalNaptar();
-            }
-        });
-
-        document.getElementById('btnElozoHonap').addEventListener('click', () => valtsHonapot(-1));
-        document.getElementById('btnKovetkezoHonap').addEventListener('click', () => valtsHonapot(1));
-
-        function frissitSzolgaltatasokat() {
-            const szakiId = szakemberSelect.value;
-            document.getElementById('naptarSzekcio').style.display = 'none';
-            szolgSelect.innerHTML = '<option value="">-- Válasszon Szolgáltatást --</option>';
-            if (!szakiId) { szolgSelect.disabled = true; return; }
-            kivalasztottSzaki = szakemberAdatok[szakiId];
-            szolgSelect.disabled = false;
-            kivalasztottSzaki.szolgaltatasok.forEach(sz => {
-                const opt = document.createElement('option');
-                opt.value = sz.id; opt.textContent = sz.nev;
-                szolgSelect.appendChild(opt);
-            });
-        }
-
-        function valtsHonapot(irany) {
-            aktualisHo += irany;
-            if (aktualisHo > 11) { aktualisHo = 0; aktualisEv++; }
-            if (aktualisHo < 0) { aktualisHo = 11; aktualisEv--; }
-            document.getElementById('idosavTarolo').style.display = 'none';
-            generalNaptar();
-        }
-
-        function generalNaptar() {
-            document.getElementById('aktualisHonapLabel').textContent = aktualisEv + " " + honapNevek[aktualisHo];
-            const grid = document.getElementById('naptarGrid');
-            grid.innerHTML = '<div class="naptar-nap fejlec-nap">H</div><div class="naptar-nap fejlec-nap">K</div><div class="naptar-nap fejlec-nap">Sze</div><div class="naptar-nap fejlec-nap">Cs</div><div class="naptar-nap fejlec-nap">P</div><div class="naptar-nap fejlec-nap">Szo</div><div class="naptar-nap fejlec-nap">V</div>';
-            const elsoNapIndex = (new Date(aktualisEv, aktualisHo, 1).getDay() + 6) % 7;
-            const napokSzama = new Date(aktualisEv, aktualisHo + 1, 0).getDate();
-            for (let i = 0; i < elsoNapIndex; i++) grid.innerHTML += '<div></div>';
-            for (let i = 1; i <= napokSzama; i++) {
-                const div = document.createElement('div');
-                div.className = 'naptar-nap'; div.textContent = i;
-                const napDatum = new Date(aktualisEv, aktualisHo, i);
-                const napMult = napDatum < new Date(ma.getFullYear(), ma.getMonth(), ma.getDate());
-                if (napMult || kivalasztottSzaki.foglaltNapok.includes(i)) {
-                    div.classList.add('foglalt');
-                } else {
-                    div.classList.add('szabad');
-                    div.addEventListener('click', function() {
-                        document.querySelectorAll('.naptar-nap').forEach(n => n.classList.remove('kivalasztva'));
-                        this.classList.add('kivalasztva');
-                        document.getElementById('kivalasztottDatumH').value = `${aktualisEv}. ${honapNevek[aktualisHo]} ${i}.`;
-
-                        const idosavGrid = document.getElementById('idosavGrid');
-                        idosavGrid.innerHTML = "";
-                        document.getElementById('idosavTarolo').style.display = 'block';
-                        idosavokAlap.forEach(ido => {
-                            const btn = document.createElement('button');
-                            btn.type = 'button'; btn.textContent = ido;
-                            btn.className = 'idosav-gomb szabad';
-                            btn.addEventListener('click', function() {
-                                document.querySelectorAll('.idosav-gomb').forEach(b => b.classList.remove('kivalasztva'));
-                                this.classList.add('kivalasztva');
-                                document.getElementById('kivalasztottIdopontH').value = ido;
-                            });
-                            idosavGrid.appendChild(btn);
-                        });
+        const drawCalendar = async () => {
+            document.getElementById('aktualisHonapLabel').textContent = `${year} ${months[month]}`;
+            const grid = document.getElementById('naptarGrid'); grid.innerHTML = '<div class="naptar-nap fejlec-nap">H</div><div class="naptar-nap fejlec-nap">K</div><div class="naptar-nap fejlec-nap">Sze</div><div class="naptar-nap fejlec-nap">Cs</div><div class="naptar-nap fejlec-nap">P</div><div class="naptar-nap fejlec-nap">Szo</div><div class="naptar-nap fejlec-nap">V</div>';
+            try { await loadAvailability(); } catch (error) { showError(document.getElementById('foglalasSiker'), error.message); return; }
+            const offset = (new Date(year, month, 1).getDay() + 6) % 7; const days = new Date(year, month + 1, 0).getDate();
+            for (let n = 0; n < offset; n++) grid.appendChild(document.createElement('div'));
+            for (let day = 1; day <= days; day++) {
+                const date = dateKey(year, month, day); const button = document.createElement('button');
+                button.type = 'button'; button.className = 'naptar-nap szabad'; button.textContent = String(day); button.setAttribute('aria-label', `${year}. ${months[month]} ${day}.`);
+                const past = new Date(year, month, day) < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+                const bookedTimes = monthAvailability[date] || [];
+                if (past || bookedTimes.length >= slots.length) { button.classList.replace('szabad', 'foglalt'); button.disabled = true; }
+                else button.addEventListener('click', () => {
+                    grid.querySelectorAll('.naptar-nap').forEach(item => { item.classList.remove('kivalasztva'); item.setAttribute('aria-pressed', 'false'); });
+                    button.classList.add('kivalasztva'); button.setAttribute('aria-pressed', 'true'); dateInput.value = date; timeInput.value = '';
+                    const timeGrid = document.getElementById('idosavGrid'); timeGrid.replaceChildren(); document.getElementById('idosavTarolo').style.display = 'block';
+                    slots.forEach(time => {
+                        const isBooked = bookedTimes.includes(time); const slot = document.createElement('button');
+                        slot.type = 'button'; slot.className = `idosav-gomb ${isBooked ? 'foglalt' : 'szabad'}`; slot.textContent = isBooked ? `${time} · foglalt` : time; slot.disabled = isBooked;
+                        slot.addEventListener('click', () => { timeGrid.querySelectorAll('button').forEach(item => item.classList.remove('kivalasztva')); slot.classList.add('kivalasztva'); timeInput.value = time; });
+                        timeGrid.appendChild(slot);
                     });
-                }
-                grid.appendChild(div);
+                });
+                grid.appendChild(button);
             }
-        }
-
-        const foglalasForm = document.getElementById('foglalasForm');
-        foglalasForm.addEventListener('submit', function(event) {
+        };
+        const updateServices = () => {
+            clearSelection(); serviceSelect.innerHTML = '<option value="">-- Válasszon Szolgáltatást --</option>';
+            chosenStaff = staff[staffSelect.value] || null; serviceSelect.disabled = !chosenStaff; calendar.style.display = 'none';
+            if (chosenStaff) chosenStaff.services.forEach(item => { const option = document.createElement('option'); option.value = item.id; option.textContent = item.name; serviceSelect.appendChild(option); });
+        };
+        staffSelect.addEventListener('change', updateServices);
+        serviceSelect.addEventListener('change', async () => { clearSelection(); calendar.style.display = serviceSelect.value ? 'block' : 'none'; if (serviceSelect.value) await drawCalendar(); });
+        document.getElementById('btnElozoHonap').addEventListener('click', async () => { month--; if (month < 0) { month = 11; year--; } clearSelection(); await drawCalendar(); });
+        document.getElementById('btnKovetkezoHonap').addEventListener('click', async () => { month++; if (month > 11) { month = 0; year++; } clearSelection(); await drawCalendar(); });
+        const staffParam = new URLSearchParams(location.search).get('szakember');
+        if (staff[staffParam]) { staffSelect.value = staffParam; updateServices(); }
+        document.getElementById('foglalasForm').addEventListener('submit', async event => {
             event.preventDefault();
-            const datum = document.getElementById('kivalasztottDatumH').value;
-            const ido = document.getElementById('kivalasztottIdopontH').value;
-            if (!datum || !ido) { alert("Válasszon szabad napot és időpontot!"); return; }
-            alert(`Bemutató foglalási folyamat: az időpontot nem mentettük el.\nVálasztott időpont: ${datum} ${ido}\nValódi foglaláshoz kérjük, hívjon minket.`);
-            event.target.reset();
-            document.getElementById('naptarSzekcio').style.display = 'none';
+            if (!dateInput.value || !timeInput.value || !serviceSelect.value) return;
+            const service = chosenStaff.services.find(item => item.id === serviceSelect.value);
+            try {
+                await api('booking_create', { staffId: staffSelect.value, serviceId: service.id, date: dateInput.value, time: timeInput.value, name: document.getElementById('ugyfelNev').value.trim(), email: document.getElementById('ugyfelEmail').value.trim() });
+                const notice = document.getElementById('foglalasSiker'); notice.textContent = `Sikeres foglalás: ${dateInput.value} ${timeInput.value}, ${service.name} – ${chosenStaff.name}.`; notice.style.display = 'block';
+                event.target.reset(); updateServices();
+            } catch (error) { showError(document.getElementById('foglalasSiker'), error.message); await drawCalendar(); }
         });
+        api('me').then(({ user }) => {
+            if (user) {
+                document.getElementById('ugyfelNev').value = user.name;
+                document.getElementById('ugyfelEmail').value = user.email;
+            }
+        }).catch(() => {});
+    }
+
+    // Vélemények adatbázisból
+    const profileId = location.pathname.split('/').pop().replace('.html', '');
+    const reviewsList = document.getElementById('velemenyekLista');
+    const loadReviews = async () => {
+        if (!reviewsList || !staff[profileId]) return;
+        try {
+            const { reviews } = await api(`reviews&staff_id=${encodeURIComponent(profileId)}`);
+            reviews.forEach(item => {
+                if ([...reviewsList.children].some(child => child.dataset.reviewId === String(item.id))) return;
+                const card = document.createElement('div'); card.className = 'velemeny-kartya';
+                card.dataset.reviewId = String(item.id);
+                const header = document.createElement('div'); header.className = 'velemeny-fejlec';
+                const name = document.createElement('strong'); name.textContent = item.name;
+                const stars = document.createElement('span'); stars.className = 'velemeny-csillagok'; stars.textContent = '★★★★★';
+                const text = document.createElement('p'); text.textContent = item.text;
+                header.append(name, stars); card.append(header, text); reviewsList.appendChild(card);
+            });
+        } catch (error) { console.error(error); }
+    };
+    loadReviews();
+    document.querySelectorAll('form.velemenyForm').forEach(form => form.addEventListener('submit', async event => {
+        event.preventDefault(); const values = new FormData(form);
+        try { await api('review_create', { staffId: values.get('szakember_id'), name: values.get('nev'), text: values.get('szoveg') }); await loadReviews(); form.reset(); }
+        catch (error) { alert(error.message); }
+    }));
+
+    // Ajándékutalvány rendelés: az összeg rögzül, bankkártyás fizetés nincs.
+    const voucherForm = document.getElementById('utalvanyForm');
+    if (voucherForm) voucherForm.addEventListener('submit', async event => {
+        event.preventDefault();
+        const amount = Number(document.getElementById('utalvanyErtek').value.replace(/\D/g, ''));
+        try {
+            const result = await api('order_create', { amount, recipient: document.getElementById('kedvezmenyezett').value.trim(), email: document.getElementById('email').value.trim() });
+            location.href = `fizetes.html?order=${encodeURIComponent(result.code)}`;
+        } catch (error) { alert(error.message); }
+    });
+    const orderForm = document.getElementById('fizetesForm');
+    if (orderForm) {
+        const code = new URLSearchParams(location.search).get('order');
+        api(`order&code=${encodeURIComponent(code || '')}`).then(({ order }) => {
+            document.getElementById('kiirtUtalvany').textContent = `Ajándékutalvány · ${order.recipient}`;
+            document.getElementById('kiirtOsszeg').textContent = `${Number(order.amount).toLocaleString('hu-HU')} Ft`;
+            document.getElementById('rendeloEmail').textContent = order.email;
+        }).catch(() => { location.href = 'ajandekkartya.html'; });
+        orderForm.addEventListener('submit', async event => {
+            event.preventDefault();
+            try { await api('order_complete', { code }); location.href = `sikeres_vasarlas.html?order=${encodeURIComponent(code)}`; }
+            catch (error) { alert(error.message); }
+        });
+    }
+    const orderCode = document.getElementById('rendelesAzonosito');
+    if (orderCode) {
+        const code = new URLSearchParams(location.search).get('order') || '';
+        api(`order&code=${encodeURIComponent(code)}`).then(({ order }) => {
+            orderCode.textContent = order.code;
+            document.getElementById('vasarlasKoszonet').textContent = `${order.recipient} részére a ${Number(order.amount).toLocaleString('hu-HU')} Ft értékű utalvány megrendelését rögzítettük.`;
+        }).catch(() => { document.getElementById('vasarlasKoszonet').textContent = 'A rendelési adat nem található.'; });
     }
 });
-// 8. REGISZTRÁCIÓS LOGIKA (Csak a regisztracio.html-en)
-    const regisztracioForm = document.getElementById('regisztracioForm');
-    if (regisztracioForm) {
-        regisztracioForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            let j1 = document.getElementById('regJelszo1').value;
-            let j2 = document.getElementById('regJelszo2').value;
-            let hibaElem = document.getElementById('jelszoHiba');
-
-            if (j1 !== j2) {
-                hibaElem.style.display = 'block';
-                return;
-            }
-            hibaElem.style.display = 'none';
-
-            alert('A regisztráció jelenleg csak bemutató: fiók nem jött létre.');
-        });
-    }
-
-    // 9. ÜGYFÉLKAPU / BEJELENTKEZÉS LOGIKA (Csak az ugyfelkapu.html-en)
-    const bejelentkezesForm = document.getElementById('bejelentkezesForm');
-    const bejelentkezoSzekcio = document.getElementById('bejelentkezoSzekcio');
-    const vezerlopultSzekcio = document.getElementById('vezerlopultSzekcio');
-    const btnKijelentkezes = document.getElementById('btnKijelentkezes');
-
-    if (bejelentkezesForm) {
-        bejelentkezesForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('A bejelentkezés jelenleg csak bemutató, fiókrendszer még nincs beállítva.');
-        });
-    }
-
-    if (btnKijelentkezes) {
-        btnKijelentkezes.addEventListener('click', function() {
-            vezerlopultSzekcio.style.display = 'none';
-            bejelentkezoSzekcio.style.display = 'block';
-        });
-    }
-    // 10. AJÁNDÉKUTALVÁNY Tovább a fizetéshez logika (Csak az ajandekkartya.html-en)
-    const utalvanyForm = document.getElementById('utalvanyForm');
-    if (utalvanyForm) {
-        utalvanyForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const ertekSelect = document.getElementById('utalvanyErtek');
-            const kivalasztottErtek = ertekSelect ? ertekSelect.value : '50 000 Ft';
-
-            // Átirányítás a fizetési oldalra a kiválasztott összeggel query paraméterként
-            window.location.href = `fizetes.html?ertek=${encodeURIComponent(kivalasztottErtek)}`;
-        });
-    }

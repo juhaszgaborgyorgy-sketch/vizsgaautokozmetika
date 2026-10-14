@@ -2,7 +2,7 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lindner Szabolcs | Luxus Studios</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -51,24 +51,11 @@
         </section>
 
         <section class="velemeny-doboz">
-            <h3 style="font-family: 'Playfair Display', serif; color: #d4af37; font-size: 1.5rem; margin-bottom: 20px;">Minta vélemények</h3>
-            <div id="velemenyekLista">
-                <div class="velemeny-kartya">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 600;"><span>Kronome Gréta</span><span style="color: #d4af37;">★★★★★</span></div>
-                    <p style="color: #a0a0a0; font-size: 0.95rem;">A 3 éves kerámia bevonat óta a vizet szinte taszítja az autó, alig kell mosni. Kiváló munka!</p>
-                </div>
-                <div class="velemeny-kartya">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 600;"><span>Vass Dominik</span><span style="color: #d4af37;">★★★★★</span></div>
-                    <p style="color: #a0a0a0; font-size: 0.95rem;">Kiváló munka!</p>
-                </div>
-                <div class="velemeny-kartya">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 600;"><span>Bárkány Judit</span><span style="color: #d4af37;">★★★★★</span></div>
-                    <p style="color: #a0a0a0; font-size: 0.95rem;">Megvagyok elégedve Szabival!</p>
-                </div>
-            </div>
+            <h3 style="font-family: 'Playfair Display', serif; color: #d4af37; font-size: 1.5rem; margin-bottom: 20px;">Ügyfélvélemények</h3>
+            <div id="velemenyekLista"></div>
 
             <h4 style="margin-top: 30px; margin-bottom: 15px; font-size: 1.1rem;">Írjon Ön is véleményt</h4>
-            <form action="velemeny_feldolgoz.php" method="POST">
+            <form class="velemenyForm">
                 <input type="hidden" name="szakember_id" value="lindner_szabolcs">
                 <div class="urlap-csoport">
                     <label>Az Ön neve</label>
@@ -102,13 +89,5 @@
         </div>
         <div class="lablec-also kozepre"><p>&copy; 2026 Luxus Studios. Minden jog fenntartva.</p></div>
     </footer>
-
-    <div id="cookieBanner" class="cookie-sav">
-        <p class="cookie-szoveg">Weboldalunk sütiket használ a felhasználói élmény fokozása érdekében. Részletekért olvassa el a <a href="suti_szabalyzat.html" class="cookie-link">Süti Szabályzatot</a>.</p>
-        <div class="cookie-gombok">
-            <button id="btnCookieElutasit" class="gomb-cookie elutasit">Elutasítom</button>
-            <button id="btnCookieElfogad" class="gomb-cookie elfogad">Elfogadom</button>
-        </div>
-    </div>
 </body>
 </html>
