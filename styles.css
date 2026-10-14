@@ -496,3 +496,68 @@ select.urlap-mezoszam option { background: #141414; color: white; }
     /* iOS Safari háttérkép fix */
     .aloldal-hatter { background-attachment: scroll !important; }
 }
+/* ==========================================
+   TISZTÍTOTT OSZTÁLYOK (Korábbi inline stílusok helyett)
+========================================== */
+/* Háttér sötétítő réteg */
+.hatter-sotetito { position: fixed; inset: 0; background: linear-gradient(135deg, rgba(11,11,11,0.95) 0%, rgba(11,11,11,0.8) 100%); z-index: -1; }
+
+/* Térköz igazítások */
+.pt-0 { padding-top: 0 !important; }
+.alcim-szurke { color: #a0a0a0; margin: 0 auto 30px; max-width: 700px; text-align: center; }
+
+/* Márkák szekció (JS onmouseover helyett tiszta CSS!) */
+.markak-szekcio { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 60px; margin-bottom: 40px; }
+.marka-racs { display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 40px; opacity: 0.6; transition: 0.3s; }
+.marka-elem { font-size: 2rem; font-weight: bold; font-family: 'Syne', sans-serif; transition: 0.3s; cursor: default; }
+.marka-elem.arany { color: #d4af37; }
+.marka-elem.arany:hover { color: #fff; }
+.marka-elem.feher { color: #f5f5f5; }
+.marka-elem.feher:hover { color: #d4af37; }
+
+/* Cookie sáv */
+.cookie-sav { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #1a1a1a; border-top: 2px solid #d4af37; padding: 20px; z-index: 9999; display: none; /* JS kapcsolja be */ justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; font-family: 'Syne', sans-serif; color: #f5f5f5; }
+.cookie-szoveg { margin: 0; font-size: 0.95rem; max-width: 800px; color: #a0a0a0; }
+.cookie-link { color: #d4af37; text-decoration: underline; }
+.cookie-gombok { display: flex; gap: 10px; }
+.gomb-cookie { padding: 10px 20px; cursor: pointer; border-radius: 3px; font-family: 'Syne', sans-serif; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s; }
+.gomb-cookie.elutasit { background: transparent; color: #a0a0a0; border: 1px solid rgba(255,255,255,0.2); }
+.gomb-cookie.elutasit:hover { background: rgba(255,255,255,0.1); }
+.gomb-cookie.elfogad { background-color: #d4af37; color: #0f0f0f; border: 2px solid #d4af37; font-weight: bold; }
+.gomb-cookie.elfogad:hover { background-color: #e6be40; }
+
+/* Szakember választó kártyák és animációk */
+.szakember-valaszto-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; max-width: 900px; margin: 0 auto 50px; }
+.szakember-opcio { background: linear-gradient(145deg, #141414 0%, #0e0e0e 100%); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 30px 15px; text-align: center; cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+.szakember-opcio:hover { border-color: rgba(212, 175, 55, 0.4); transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+.szakember-opcio.aktiv { border-color: #d4af37; background: rgba(212, 175, 55, 0.05); box-shadow: 0 0 20px rgba(212, 175, 55, 0.15); }
+.szakember-opcio i { font-size: 2.2rem; color: #d4af37; margin-bottom: 15px; transition: transform 0.3s ease; }
+.szakember-opcio.aktiv i { transform: scale(1.15); }
+.szakember-opcio h4 { color: #fff; font-family: 'Syne', sans-serif; font-size: 1.1rem; margin-bottom: 5px; text-transform: uppercase; }
+.szakember-opcio p { color: #a0a0a0; font-size: 0.85rem; margin: 0; }
+@keyframes beuszas { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Prémium Árlista Dizájn (Éttermi menü) */
+.luxus-arlista-doboz { background: linear-gradient(180deg, rgba(15,15,15,0.95) 0%, rgba(8,8,8,0.98) 100%); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; padding: 50px 40px; width: 100%; max-width: 700px; box-shadow: 0 25px 50px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.02); position: relative; overflow: hidden; margin: 0 auto; }
+.luxus-arlista-doboz::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, transparent, #d4af37, transparent); }
+.ar-fejlec-uj { text-align: center; margin-bottom: 45px; }
+.ar-fejlec-uj h3 { font-family: 'Syne', sans-serif; color: #ffffff; font-size: 2rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px; }
+.ar-fejlec-uj p { color: #d4af37; font-size: 1rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; }
+.ar-tetel-uj { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px; position: relative; }
+.ar-tetel-szoveg { background: transparent; padding-right: 15px; z-index: 2; max-width: 75%; text-align: left; }
+.ar-tetel-szoveg h4 { color: #eaeaea; font-size: 1.15rem; font-weight: 600; margin-bottom: 5px; font-family: 'Plus Jakarta Sans', sans-serif; }
+.ar-tetel-szoveg p { color: #888888; font-size: 0.85rem; line-height: 1.4; margin: 0; }
+.ar-tetel-pontok { flex-grow: 1; border-bottom: 2px dotted rgba(212, 175, 55, 0.3); position: relative; top: -6px; margin: 0 10px; z-index: 1; }
+.ar-tetel-osszeg { background: transparent; padding-left: 15px; z-index: 2; font-family: 'Syne', sans-serif; color: #d4af37; font-size: 1.35rem; font-weight: 800; white-space: nowrap; }
+.arlista-cta { margin-top: 50px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; }
+/* Globális / Egyedi tiszta osztályok */
+.aloldal-hatter { background: url('kocsik.jpg') center/cover no-repeat fixed; position: relative; min-height: 100vh; }
+.fizetes-test { background: url('kocsik.jfif') center/cover no-repeat; min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
+.kartya-sotet { background-color: #1a1a1a; padding: 30px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); }
+.captcha-doboz { background: rgba(255,255,255,0.02); padding: 15px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; }
+.captcha-checkbox { width: 20px; height: 20px; accent-color: #d4af37; cursor: pointer; }
+.vezerlopult-racs { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; margin-top: 40px; }
+.ertesites { padding: 15px; border-left: 4px solid #d4af37; background: rgba(255,255,255,0.02); margin-bottom: 15px; border-radius: 0 4px 4px 0; }
+.ertesites.piros { border-left-color: #ff4d4d; }
+.ertesites.zold { border-left-color: #4CAF50; }
+@media (max-width: 768px) { .vezerlopult-racs { grid-template-columns: 1fr; } }

@@ -6,23 +6,16 @@
     <title>Fiók | Luxus Studios</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css"> <!-- Ide az alap stíluslapod kerül -->
+    <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/png" href="logo.png">
-    <style>
-        .vezerlopult-racs { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; margin-top: 40px; }
-        .kartya-sotet { background-color: #1a1a1a; padding: 30px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); }
-        .ertesites { padding: 15px; border-left: 4px solid #d4af37; background: rgba(255,255,255,0.02); margin-bottom: 15px; border-radius: 0 4px 4px 0; }
-        .ertesites.piros { border-left-color: #ff4d4d; }
-        .ertesites.zold { border-left-color: #4CAF50; }
-        @media (max-width: 768px) { .vezerlopult-racs { grid-template-columns: 1fr; } }
-    </style>
+    <script src="script.js" defer></script>
 </head>
-<body style="background: url('kocsik.jpg') center/cover no-repeat fixed; position: relative; min-height: 100vh;">
+<body class="aloldal-hatter">
+    <div class="hatter-sotetito"></div>
 
-    <!-- Sötétítő luxus réteg a háttérkép felett (mögé küldve, hogy ne takarja a gombokat) -->
-    <div style="position: fixed; inset: 0; background: linear-gradient(135deg, rgba(11,11,11,0.95) 0%, rgba(11,11,11,0.8) 100%); z-index: -1;"></div>
     <header class="fejlec">
-        <div class="fejlec-doboz kontener">
+        <!-- Az inline style garantálja, hogy a logó és a menü a két ellentétes sarokba kerüljön -->
+        <div class="fejlec-doboz kontener" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
             <a href="autokozmetika.html" class="logo"><i class="fa-solid fa-gem"></i> LUXUS <span>STUDIOS</span></a>
 
             <!-- Hamburger Gomb Mobilra -->
@@ -30,9 +23,9 @@
                 <i class="fa-solid fa-bars"></i>
             </button>
 
+            <!-- Navigáció -->
             <nav class="navigacio" id="fomenu">
                 <ul class="nav-lista">
-                    <!-- Fontos: Az 'aktiv' osztályt mindig annál a linknél hagyd meg, amelyik oldalon épp vagy! -->
                     <li class="nav-elem"><a href="autokozmetika.html" class="nav-link">Főoldal</a></li>
                     <li class="nav-elem"><a href="telephelyek.html" class="nav-link">Telephelyek</a></li>
                     <li class="nav-elem"><a href="szakemberek.html" class="nav-link">Mestereink</a></li>
@@ -45,7 +38,6 @@
     </header>
 
     <main class="kontener terulet-padding">
-        
         <!-- BEJELENTKEZŐ ŰRLAP -->
         <div id="bejelentkezoSzekcio" style="max-width: 500px; margin: 0 auto;">
             <div class="kozepre">
@@ -54,7 +46,7 @@
                 <p style="color: #a0a0a0; margin-bottom: 30px;">Lépjen be a foglalásai és értesítései kezeléséhez.</p>
             </div>
             <div class="kartya-sotet">
-                <form onsubmit="bejelentkezesSzimulacio(event)">
+                <form id="bejelentkezesForm">
                     <div class="urlap-csoport">
                         <label>E-mail cím</label>
                         <input type="email" class="urlap-mezoszam" value="ugyfel@pelda.hu" required>
@@ -64,7 +56,6 @@
                         <input type="password" class="urlap-mezoszam" value="123456" required>
                     </div>
                     <button type="submit" class="gomb gomb-elsodleges" style="width: 100%;">Belépés a fiókba</button>
-                    <!-- Itt módosítottuk a linket, hogy a regisztracio.html-re mutasson -->
                     <p style="text-align: center; margin-top: 20px; font-size: 0.85rem; color: #a0a0a0;">Nincs még fiókja? <a href="regisztracio.html" style="color: #d4af37; text-decoration: underline;">Regisztráljon itt!</a></p>
                 </form>
             </div>
@@ -74,7 +65,7 @@
         <div id="vezerlopultSzekcio" style="display: none;">
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px;">
                 <h1 class="szekcio-cim" style="font-size: 2rem;">Üdvözöljük, Szabó Béla!</h1>
-                <button onclick="kijelentkezes()" class="gomb gomb-keret" style="padding: 8px 15px; font-size: 0.8rem;"><i class="fa-solid fa-right-from-bracket"></i> Kijelentkezés</button>
+                <button id="btnKijelentkezes" class="gomb gomb-keret" style="padding: 8px 15px; font-size: 0.8rem;"><i class="fa-solid fa-right-from-bracket"></i> Kijelentkezés</button>
             </div>
 
             <div class="vezerlopult-racs">
@@ -118,57 +109,20 @@
         <div class="kontener lablec-racs">
             <div class="lablec-marka"><h3>Luxus Studios</h3><p>Az autóápolás művészete.</p></div>
             <div class="lablec-kapcsolat">
-            <h4>Kapcsolat</h4>
-            <p><i class="fa-solid fa-phone"></i> +36 70 881 1162</p>
-            <p><i class="fa-solid fa-phone"></i> +36 30 194 5512</p>
-            <p><i class="fa-solid fa-phone"></i> +36 30 982 7636</p>
-            <p><i class="fa-solid fa-at"></i> info@luxusstudios.hu</p>
-
-        </div>
+                <h4>Kapcsolat</h4>
+                <p><i class="fa-solid fa-phone"></i> +36 70 881 1162</p>
+                <p><i class="fa-solid fa-phone"></i> +36 30 194 5512</p>
+                <p><i class="fa-solid fa-phone"></i> +36 30 982 7636</p>
+                <p><i class="fa-solid fa-at"></i> info@luxusstudios.hu</p>
+            </div>
             <div class="lablec-kapcsolat">
                 <h4>Jogi Információk</h4>
-                <p><a href="impresszum.html" style="color: #a0a0a0; text-decoration: none;">Impresszum</a></p>
-                <p><a href="adatvedelem.html" style="color: #a0a0a0; text-decoration: none;">Adatvédelmi tájékoztató</a></p>
-                <p><a href="suti_szabalyzat.html" style="color: #a0a0a0; text-decoration: none;">Süti szabályzat</a></p>
+                <p><a href="impresszum.html" class="nav-link">Impresszum</a></p>
+                <p><a href="adatvedelem.html" class="nav-link">Adatvédelmi tájékoztató</a></p>
+                <p><a href="suti_szabalyzat.html" class="nav-link">Süti szabályzat</a></p>
             </div>
         </div>
         <div class="lablec-also kozepre"><p>&copy; 2026 Luxus Studios. Minden jog fenntartva.</p></div>
     </footer>
-
-    <script>
-        function bejelentkezesSzimulacio(e) {
-            e.preventDefault();
-            document.getElementById('bejelentkezoSzekcio').style.display = 'none';
-            document.getElementById('vezerlopultSzekcio').style.display = 'block';
-        }
-        function kijelentkezes() {
-            document.getElementById('vezerlopultSzekcio').style.display = 'none';
-            document.getElementById('bejelentkezoSzekcio').style.display = 'block';
-        }
-    </script>
-<!-- Hamburger Menü Működtető Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuGomb = document.getElementById('mobilMenugomb');
-            const menu = document.getElementById('fomenu');
-
-            if(menuGomb && menu) {
-                menuGomb.addEventListener('click', function() {
-                    // Hozzáadja vagy leveszi a 'nyitva' osztályt
-                    menu.classList.toggle('nyitva');
-
-                    // Ikon animált cseréje (☰ és X között)
-                    const ikon = menuGomb.querySelector('i');
-                    if(menu.classList.contains('nyitva')) {
-                        ikon.classList.remove('fa-bars');
-                        ikon.classList.add('fa-xmark');
-                    } else {
-                        ikon.classList.remove('fa-xmark');
-                        ikon.classList.add('fa-bars');
-                    }
-                });
-            }
-        });
-    </script>
 </body>
 </html>

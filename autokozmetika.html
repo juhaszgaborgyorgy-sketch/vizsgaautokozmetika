@@ -4,14 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Luxus Studios | Prémium Autókozmetika</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/png" href="logo.png">
+
+    <!-- Külső JavaScript fájl csatolása -->
+    <script src="script.js" defer></script>
 </head>
-<body>
+<body class="aloldal-hatter">
+
+    <!-- Sötétítő luxus réteg -->
+    <div class="hatter-sotetito"></div>
+
     <header class="fejlec">
-        <div class="fejlec-doboz kontener">
+        <!-- Az inline style garantálja, hogy a logó és a menü a két ellentétes sarokba kerüljön -->
+        <div class="fejlec-doboz kontener" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
             <a href="autokozmetika.html" class="logo"><i class="fa-solid fa-gem"></i> LUXUS <span>STUDIOS</span></a>
 
             <!-- Hamburger Gomb Mobilra -->
@@ -19,10 +27,11 @@
                 <i class="fa-solid fa-bars"></i>
             </button>
 
+            <!-- Navigáció -->
             <nav class="navigacio" id="fomenu">
                 <ul class="nav-lista">
                     <li class="nav-elem"><a href="autokozmetika.html" class="nav-link aktiv">Főoldal</a></li>
-                    <li class="nav-elem"><a href="telephelyek.html" class="nav-link ">Telephelyek</a></li>
+                    <li class="nav-elem"><a href="telephelyek.html" class="nav-link">Telephelyek</a></li>
                     <li class="nav-elem"><a href="szakemberek.html" class="nav-link">Mestereink</a></li>
                     <li class="nav-elem"><a href="ajandekkartya.html" class="nav-link">Utalványok</a></li>
                     <li class="nav-elem"><a href="foglalas.html" class="nav-link gomb gomb-elsodleges">Foglalás</a></li>
@@ -49,18 +58,19 @@
         <section class="kontener terulet-padding kozepre">
             <h2 class="szekcio-cim">A Polírozás Hatása</h2>
             <div class="elvalaszto"></div>
-            <p style="color: #a0a0a0; margin-bottom: 20px;">Húzza el a csúszkát a mikrokarcok eltávolítása előtti és utáni állapot megtekintéséhez.</p>
+            <p class="alcim-szurke">Húzza el a csúszkát a mikrokarcok eltávolítása előtti és utáni állapot megtekintéséhez.</p>
 
             <div class="csuszka-doboz">
-    <img src="utana.jpg" alt="Utána">
-    <div class="elozo-kep" id="elozoNezet">
-        <img src="elotte.jpg" alt="Előtte">
-    </div>
-    <input type="range" min="0" max="100" value="50" oninput="csuszkaMozgat(this.value)">
-</div>
+                <img src="utana.jpg" alt="Utána">
+                <div class="elozo-kep" id="elozoNezet">
+                    <img src="elotte.jpg" alt="Előtte">
+                </div>
+                <!-- JS eseménykezelő az ID alapján működik -->
+                <input type="range" id="polirCsuszka" min="0" max="100" value="50">
+            </div>
         </section>
 
-        <section class="kontener terulet-padding" style="padding-top: 0;">
+        <section class="kontener terulet-padding pt-0">
             <div class="kozepre">
                 <h2 class="szekcio-cim">Prémium Szolgáltatásaink</h2>
                 <div class="elvalaszto"></div>
@@ -90,69 +100,175 @@
             </div>
         </section>
 
-        <!-- Kalkulátor -->
-        <section class="kontener terulet-padding" style="padding-top: 0;">
+        <!-- SZOLGÁLTATÁSOK ÉS ÁRLISTA SZEKCIÓ -->
+        <section class="kontener terulet-padding pt-0">
             <div class="kozepre">
-                <h2 class="szekcio-cim">Online Árajánlat Kalkulátor</h2>
+                <h2 class="szekcio-cim">Szakértői <span>Árlisták</span></h2>
                 <div class="elvalaszto"></div>
+                <p class="alcim-szurke">Kérjük, kattintson a megfelelő mesterünkre az egyedi árlista megtekintéséhez.</p>
+
+                <!-- Prémium Szakember Választó Kártyák -->
+                <div class="szakember-valaszto-grid">
+                    <div class="szakember-opcio" data-valasztott="toth_zoltan">
+                        <i class="fa-solid fa-user-gear"></i>
+                        <h4>Tóth Zoltán</h4>
+                        <p>Vezető Polírozó</p>
+                    </div>
+                    <div class="szakember-opcio" data-valasztott="juhasz_gabor">
+                        <i class="fa-solid fa-user-tie"></i>
+                        <h4>Juhász Gábor</h4>
+                        <p>Belső Tér Specialista</p>
+                    </div>
+                    <div class="szakember-opcio" data-valasztott="lindner_szabolcs">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <h4>Lindner Szabolcs</h4>
+                        <p>Kerámia Szakértő</p>
+                    </div>
+                </div>
             </div>
-            <div class="kalkulator-doboz">
-                <div class="urlap-csoport">
-                    <label>1. Válassza ki az autó méretét</label>
-                    <select id="autoMeret" class="urlap-mezoszam" onchange="szamolAr()">
-                        <option value="1">Kisautó (pl. Audi A1, VW Polo)</option>
-                        <option value="1.25">Sedán / Kombi (pl. BMW 3, Passat)</option>
-                        <option value="1.5">SUV / Terepjáró / Nagyautó (pl. X5, GLE)</option>
-                    </select>
+
+            <!-- Árlista Rács (JS jeleníti meg) -->
+            <div class="arlista-racs" id="arlistaRacs" style="display: none; justify-content: center; width: 100%;">
+
+                <!-- 1. Csomag: Juhász Gábor -->
+                <div class="arlista-kartya luxus-arlista-doboz" data-szakember="juhasz_gabor" style="display: none;">
+                    <div class="ar-fejlec-uj">
+                        <h3>Juhász Gábor</h3>
+                        <p><i class="fa-solid fa-user-tie"></i> Belső Tér Specialista</p>
+                    </div>
+                    <div class="ar-tetel-uj">
+                        <div class="ar-tetel-szoveg">
+                            <h4>Prémium Külső Mosás</h4>
+                            <p>Nano viasszal, felnitisztítással</p>
+                        </div>
+                        <div class="ar-tetel-pontok"></div>
+                        <div class="ar-tetel-osszeg">9.990 Ft</div>
+                    </div>
+                    <div class="ar-tetel-uj">
+                        <div class="ar-tetel-szoveg">
+                            <h4>Prémium Belső Tisztítás</h4>
+                            <p>Műanyagápolással, porszívózással</p>
+                        </div>
+                        <div class="ar-tetel-pontok"></div>
+                        <div class="ar-tetel-osszeg">9.990 Ft</div>
+                    </div>
+                    <div class="ar-tetel-uj">
+                        <div class="ar-tetel-szoveg">
+                            <h4>Külső-Belső Prémium Csomag</h4>
+                            <p>A legnépszerűbb kombinált tisztítás</p>
+                        </div>
+                        <div class="ar-tetel-pontok"></div>
+                        <div class="ar-tetel-osszeg">17.990 Ft</div>
+                    </div>
+                    <div class="arlista-cta">
+                        <a href="foglalas.html" class="gomb gomb-elsodleges">Időpontfoglalás Gáborhoz</a>
+                    </div>
                 </div>
-                <div class="urlap-csoport">
-                    <label>2. Válassza ki a szolgáltatást</label>
-                    <select id="szolgTipus" class="urlap-mezoszam" onchange="szamolAr()">
-                        <option value="45000">1 Lépcsős Polírozás (Alap: 45 000 Ft)</option>
-                        <option value="85000">3 Lépcsős Prémium Polírozás (Alap: 85 000 Ft)</option>
-                        <option value="130000">3 Éves 9H Kerámia Bevonat (Alap: 130 000 Ft)</option>
-                    </select>
+
+                <!-- 2. Csomag: Tóth Zoltán -->
+                <div class="arlista-kartya luxus-arlista-doboz" data-szakember="toth_zoltan" style="display: none;">
+                    <div class="ar-fejlec-uj">
+                        <h3>Tóth Zoltán</h3>
+                        <p><i class="fa-solid fa-user-gear"></i> Vezető Polírozó</p>
+                    </div>
+                    <div class="ar-tetel-uj">
+                        <div class="ar-tetel-szoveg">
+                            <h4>Fényszóró Polírozás</h4>
+                            <p>Mattulás eltávolítása, kerámia védelemmel</p>
+                        </div>
+                        <div class="ar-tetel-pontok"></div>
+                        <div class="ar-tetel-osszeg">11.990 Ft</div>
+                    </div>
+                    <div class="ar-tetel-uj">
+                        <div class="ar-tetel-szoveg">
+                            <h4>1 Lépcsős Fényesítő Polírozás</h4>
+                            <p>Alapvető mikrokarcok eltüntetése</p>
+                        </div>
+                        <div class="ar-tetel-pontok"></div>
+                        <div class="ar-tetel-osszeg">45.000 Ft</div>
+                    </div>
+                    <div class="ar-tetel-uj">
+                        <div class="ar-tetel-szoveg">
+                            <h4>Többlépcsős Prémium Polírozás</h4>
+                            <p>Mélyebb karcok és hologramok ellen</p>
+                        </div>
+                        <div class="ar-tetel-pontok"></div>
+                        <div class="ar-tetel-osszeg">85.000 Ft</div>
+                    </div>
+                    <div class="arlista-cta">
+                        <a href="foglalas.html" class="gomb gomb-elsodleges">Időpontfoglalás Zoltánhoz</a>
+                    </div>
                 </div>
-                <div class="kozepre" style="margin-top:30px;">
-                    <p style="color:#a0a0a0; font-size:0.9rem; text-transform:uppercase;">Becsült kalkulált ár:</p>
-                    <div class="kalkulator-eredmeny" id="eredmenyAr">45 000 Ft</div>
-                    <a href="foglalas.html" class="gomb gomb-elsodleges" style="margin-top:20px;">Foglalás ezzel az árral</a>
+
+                <!-- 3. Csomag: Lindner Szabolcs -->
+                <div class="arlista-kartya luxus-arlista-doboz" data-szakember="lindner_szabolcs" style="display: none;">
+                    <div class="ar-fejlec-uj">
+                        <h3>Lindner Szabolcs</h3>
+                        <p><i class="fa-solid fa-user-shield"></i> Kerámia Szakértő</p>
+                    </div>
+                    <div class="ar-tetel-uj">
+                        <div class="ar-tetel-szoveg">
+                            <h4>Ózongenerátoros Tisztítás</h4>
+                            <p>Teljes belső fertőtlenítés és szagmentesítés</p>
+                        </div>
+                        <div class="ar-tetel-pontok"></div>
+                        <div class="ar-tetel-osszeg">6.990 Ft</div>
+                    </div>
+                    <div class="ar-tetel-uj">
+                        <div class="ar-tetel-szoveg">
+                            <h4>Prémium Bőrápolás</h4>
+                            <p>Bőrtisztítás és kondicionálás</p>
+                        </div>
+                        <div class="ar-tetel-pontok"></div>
+                        <div class="ar-tetel-osszeg">8.990 Ft</div>
+                    </div>
+                    <div class="ar-tetel-uj">
+                        <div class="ar-tetel-szoveg">
+                            <h4>3 Éves 9H Kerámia Bevonat</h4>
+                            <p>A maximális nanotechnológiás védelem</p>
+                        </div>
+                        <div class="ar-tetel-pontok"></div>
+                        <div class="ar-tetel-osszeg">130.000 Ft</div>
+                    </div>
+                    <div class="arlista-cta">
+                        <a href="foglalas.html" class="gomb gomb-elsodleges">Időpontfoglalás Szabolcshoz</a>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- GYIK -->
-        <section class="kontener terulet-padding" style="padding-top: 0;">
+        <section class="kontener terulet-padding pt-0">
             <div class="kozepre">
                 <h2 class="szekcio-cim">Gyakran Ismételt Kérdések</h2>
                 <div class="elvalaszto"></div>
             </div>
             <div class="gyik-doboz">
                 <div class="gyik-elem">
-                    <div class="gyik-kerdes" onclick="gyikValtas(this)">Mennyi ideig tart a kerámia bevonat felhelyezése? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="gyik-kerdes">Mennyi ideig tart a kerámia bevonat felhelyezése? <i class="fa-solid fa-chevron-down"></i></div>
                     <div class="gyik-valasz">A teljes folyamat – az előmosás, a többlépcsős polírozás, a zsírtalanítás és a többrétegű kerámia felvitele + száradása – általában 2-3 munkanapot vesz igénybe.</div>
                 </div>
                 <div class="gyik-elem">
-                    <div class="gyik-kerdes" onclick="gyikValtas(this)">Vihetem-e kézi vagy gépi mosóba az autót utána? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="gyik-kerdes">Vihetem-e kézi vagy gépi mosóba az autót utána? <i class="fa-solid fa-chevron-down"></i></div>
                     <div class="gyik-valasz">Hagyományos kefés gépi mosóba szigorúan tilos vinni, mert a kefék karcolják a lakkot! Kizárólag óvatos kézi mosás vagy érintésmentes mosás javasolt pH-semleges samponnal.</div>
                 </div>
                 <div class="gyik-elem">
-                    <div class="gyik-kerdes" onclick="gyikValtas(this)">Mennyi garanciát vállaltok a munkákra? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="gyik-kerdes">Mennyi garanciát vállaltok a munkákra? <i class="fa-solid fa-chevron-down"></i></div>
                     <div class="gyik-valasz">A 3 éves 9H kerámia bevonatra hivatalos, írásos garanciát adunk, amennyiben betartod az éves ellenőrzési és utóápolási előírásokat.</div>
                 </div>
             </div>
         </section>
 
-        <!-- PRÉMIUM MÁRKÁK SZEKCIÓ -->
-        <section class="kontener terulet-padding" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 60px; margin-bottom: 40px;">
+        <!-- PRÉMIUM MÁRKÁK SZEKCIÓ (Tiszta CSS dizájn) -->
+        <section class="kontener terulet-padding markak-szekcio">
             <div class="kozepre">
-                <h3 style="font-size: 1.2rem; color: #a0a0a0; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 40px;">Kizárólag világmárkákkal dolgozunk</h3>
+                <h3 class="alcim-szurke" style="text-transform: uppercase; letter-spacing: 2px;">Kizárólag világmárkákkal dolgozunk</h3>
             </div>
-            <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 40px; opacity: 0.6; transition: 0.3s;">
-                <div style="font-size: 2rem; font-weight: bold; font-family: 'Playfair Display', serif; color: #d4af37; transition: 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#d4af37'"><i class="fa-solid fa-shield-cat"></i> GYEON</div>
-                <div style="font-size: 2rem; font-weight: bold; font-family: 'Playfair Display', serif; color: #f5f5f5; transition: 0.3s;" onmouseover="this.style.color='#d4af37'" onmouseout="this.style.color='#f5f5f5'"><i class="fa-solid fa-gem"></i> KOCH CHEMIE</div>
-                <div style="font-size: 2rem; font-weight: bold; font-family: 'Playfair Display', serif; color: #d4af37; transition: 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#d4af37'"><i class="fa-solid fa-wand-magic-sparkles"></i> RUPES</div>
-                <div style="font-size: 2rem; font-weight: bold; font-family: 'Playfair Display', serif; color: #f5f5f5; transition: 0.3s;" onmouseover="this.style.color='#d4af37'" onmouseout="this.style.color='#f5f5f5'"><i class="fa-solid fa-car-burst"></i> CARPRO</div>
+            <div class="marka-racs">
+                <div class="marka-elem arany"><i class="fa-solid fa-shield-cat"></i> GYEON</div>
+                <div class="marka-elem feher"><i class="fa-solid fa-gem"></i> KOCH CHEMIE</div>
+                <div class="marka-elem arany"><i class="fa-solid fa-wand-magic-sparkles"></i> RUPES</div>
+                <div class="marka-elem feher"><i class="fa-solid fa-car-burst"></i> CARPRO</div>
             </div>
         </section>
     </main>
@@ -161,74 +277,31 @@
         <div class="kontener lablec-racs">
             <div class="lablec-marka"><h3>Luxus Studios</h3><p>Az autóápolás művészete.</p></div>
             <div class="lablec-kapcsolat">
-            <h4>Kapcsolat</h4>
-            <p><i class="fa-solid fa-phone"></i> +36 70 881 1162</p>
-            <p><i class="fa-solid fa-phone"></i> +36 30 194 5512</p>
-            <p><i class="fa-solid fa-phone"></i> +36 30 982 7636</p>
-            <p><i class="fa-solid fa-at"></i> info@luxusstudios.hu</p>
-
-        </div>
+                <h4>Kapcsolat</h4>
+                <p><i class="fa-solid fa-location-dot"></i> 2340 Kiskunlacháza, Könyves Kálmán u. 13.</p>
+                <p><i class="fa-solid fa-phone"></i> +36 70 881 1162</p>
+                <p><i class="fa-solid fa-phone"></i> +36 30 194 5512</p>
+                <p><i class="fa-solid fa-phone"></i> +36 30 982 7636</p>
+                <p><i class="fa-solid fa-at"></i> info@luxusstudios.hu</p>
+            </div>
             <div class="lablec-kapcsolat">
                 <h4>Jogi Információk</h4>
-                <p><a href="impresszum.html" style="color: #a0a0a0; text-decoration: none;">Impresszum</a></p>
-                <p><a href="adatvedelem.html" style="color: #a0a0a0; text-decoration: none;">Adatvédelmi tájékoztató</a></p>
-                <p><a href="suti_szabalyzat.html" style="color: #a0a0a0; text-decoration: none;">Süti szabályzat</a></p>
+                <p><a href="impresszum.html" class="nav-link">Impresszum</a></p>
+                <p><a href="adatvedelem.html" class="nav-link">Adatvédelmi tájékoztató</a></p>
+                <p><a href="suti_szabalyzat.html" class="nav-link">Süti szabályzat</a></p>
             </div>
         </div>
         <div class="lablec-also kozepre"><p>&copy; 2026 Luxus Studios. Minden jog fenntartva.</p></div>
     </footer>
 
-    <script>
-        function csuszkaMozgat(val) { document.getElementById('elozoNezet').style.width = val + '%'; }
-        function szamolAr() {
-            let meretSzorzo = parseFloat(document.getElementById('autoMeret').value);
-            let alapAr = parseInt(document.getElementById('szolgTipus').value);
-            let vegso = Math.round(alapAr * meretSzorzo);
-            document.getElementById('eredmenyAr').textContent = vegso.toLocaleString('hu-HU') + ' Ft';
-        }
-        function gyikValtas(elem) {
-            let valasz = elem.nextElementSibling;
-            valasz.style.display = (valasz.style.display === "block") ? "none" : "block";
-        }
-    </script>
-
-    <!-- Cookie Sáv -->
-    <div id="cookieBanner" style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: #1a1a1a; border-top: 2px solid #d4af37; padding: 20px; z-index: 9999; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; font-family: 'Playfair Display', serif; color: #f5f5f5;">
-        <p style="margin: 0; font-size: 0.95rem; max-width: 800px; color: #a0a0a0;">
-            Weboldalunk sütiket (cookie-kat) használ a felhasználói élmény fokozása, valamint a foglalások és vélemények kezelése érdekében. Részletekért olvassa el a <a href="suti_szabalyzat.html" style="color: #d4af37; text-decoration: underline;">Süti Szabályzatot</a>.
-        </p>
-        <div style="display: flex; gap: 10px;">
-            <button onclick="cookieKezeles('elutasitva')" style="background: transparent; color: #a0a0a0; border: 1px solid rgba(255,255,255,0.2); padding: 10px 20px; cursor: pointer; border-radius: 3px; font-family: 'Playfair Display', serif; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s;">Elutasítom</button>
-            <button onclick="cookieKezeles('elfogadva')" style="background-color: #d4af37; color: #0f0f0f; border: 2px solid #d4af37; padding: 10px 20px; cursor: pointer; border-radius: 3px; font-family: 'Playfair Display', serif; font-weight: bold; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s;">Elfogadom</button>
+    <!-- Cookie Sáv (Immár tiszta CSS + külön JS logika) -->
+    <div id="cookieBanner" class="cookie-sav">
+        <p class="cookie-szoveg">Weboldalunk sütiket (cookie-kat) használ a felhasználói élmény fokozása érdekében. Részletekért olvassa el a <a href="suti_szabalyzat.html" class="cookie-link">Süti Szabályzatot</a>.</p>
+        <div class="cookie-gombok">
+            <button id="btnCookieElutasit" class="gomb-cookie elutasit">Elutasítom</button>
+            <button id="btnCookieElfogad" class="gomb-cookie elfogad">Elfogadom</button>
         </div>
     </div>
-    <script>
-        function cookieKezeles(dontes) { document.getElementById('cookieBanner').style.display = 'none'; localStorage.setItem('cookieDöntés', dontes); }
-        window.onload = function() { if(localStorage.getItem('cookieDöntés')) { document.getElementById('cookieBanner').style.display = 'none'; } }
-    </script>
-<!-- Hamburger Menü Működtető Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuGomb = document.getElementById('mobilMenugomb');
-            const menu = document.getElementById('fomenu');
 
-            if(menuGomb && menu) {
-                menuGomb.addEventListener('click', function() {
-                    // Hozzáadja vagy leveszi a 'nyitva' osztályt
-                    menu.classList.toggle('nyitva');
-
-                    // Ikon animált cseréje (☰ és X között)
-                    const ikon = menuGomb.querySelector('i');
-                    if(menu.classList.contains('nyitva')) {
-                        ikon.classList.remove('fa-bars');
-                        ikon.classList.add('fa-xmark');
-                    } else {
-                        ikon.classList.remove('fa-xmark');
-                        ikon.classList.add('fa-bars');
-                    }
-                });
-            }
-        });
-    </script>
 </body>
 </html>

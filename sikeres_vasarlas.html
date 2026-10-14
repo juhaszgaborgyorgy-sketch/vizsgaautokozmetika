@@ -8,8 +8,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/png" href="logo.png">
-<header class="fejlec">
-        <div class="fejlec-doboz kontener">
+    <script src="script.js" defer></script>
+</head>
+<body class="aloldal-hatter">
+    <div class="hatter-sotetito"></div>
+
+    <header class="fejlec">
+        <!-- Az inline style garantálja, hogy a logó és a menü a két ellentétes sarokba kerüljön -->
+        <div class="fejlec-doboz kontener" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
             <a href="autokozmetika.html" class="logo"><i class="fa-solid fa-gem"></i> LUXUS <span>STUDIOS</span></a>
 
             <!-- Hamburger Gomb Mobilra -->
@@ -17,9 +23,9 @@
                 <i class="fa-solid fa-bars"></i>
             </button>
 
+            <!-- Navigáció -->
             <nav class="navigacio" id="fomenu">
                 <ul class="nav-lista">
-                    <!-- Fontos: Az 'aktiv' osztályt mindig annál a linknél hagyd meg, amelyik oldalon épp vagy! -->
                     <li class="nav-elem"><a href="autokozmetika.html" class="nav-link">Főoldal</a></li>
                     <li class="nav-elem"><a href="telephelyek.html" class="nav-link">Telephelyek</a></li>
                     <li class="nav-elem"><a href="szakemberek.html" class="nav-link">Mestereink</a></li>
@@ -53,56 +59,20 @@
         <div class="kontener lablec-racs">
             <div class="lablec-marka"><h3>Luxus Studios</h3><p>Az autóápolás művészete.</p></div>
             <div class="lablec-kapcsolat">
-            <h4>Kapcsolat</h4>
-            <p><i class="fa-solid fa-phone"></i> +36 70 881 1162</p>
-            <p><i class="fa-solid fa-phone"></i> +36 30 194 5512</p>
-            <p><i class="fa-solid fa-phone"></i> +36 30 982 7636</p>
-            <p><i class="fa-solid fa-at"></i> info@luxusstudios.hu</p>
-
-        </div>
+                <h4>Kapcsolat</h4>
+                <p><i class="fa-solid fa-phone"></i> +36 70 881 1162</p>
+                <p><i class="fa-solid fa-phone"></i> +36 30 194 5512</p>
+                <p><i class="fa-solid fa-phone"></i> +36 30 982 7636</p>
+                <p><i class="fa-solid fa-at"></i> info@luxusstudios.hu</p>
+            </div>
             <div class="lablec-kapcsolat">
                 <h4>Jogi Információk</h4>
-                <p><a href="impresszum.html" style="color: #a0a0a0; text-decoration: none;">Impresszum</a></p>
-                <p><a href="adatvedelem.html" style="color: #a0a0a0; text-decoration: none;">Adatvédelmi tájékoztató</a></p>
-                <p><a href="suti_szabalyzat.html" style="color: #a0a0a0; text-decoration: none;">Süti szabályzat</a></p>
+                <p><a href="impresszum.html" class="nav-link">Impresszum</a></p>
+                <p><a href="adatvedelem.html" class="nav-link">Adatvédelmi tájékoztató</a></p>
+                <p><a href="suti_szabalyzat.html" class="nav-link">Süti szabályzat</a></p>
             </div>
         </div>
         <div class="lablec-also kozepre"><p>&copy; 2026 Luxus Studios. Minden jog fenntartva.</p></div>
     </footer>
-
-    <script>
-        // URL-ből kiolvassuk a generált rendelési számot
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const rendeles = urlParams.get('rendeles');
-            if(rendeles) {
-                document.getElementById('rendelesAzonosito').textContent = rendeles;
-            }
-        };
-    </script>
-<!-- Hamburger Menü Működtető Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuGomb = document.getElementById('mobilMenugomb');
-            const menu = document.getElementById('fomenu');
-
-            if(menuGomb && menu) {
-                menuGomb.addEventListener('click', function() {
-                    // Hozzáadja vagy leveszi a 'nyitva' osztályt
-                    menu.classList.toggle('nyitva');
-
-                    // Ikon animált cseréje (☰ és X között)
-                    const ikon = menuGomb.querySelector('i');
-                    if(menu.classList.contains('nyitva')) {
-                        ikon.classList.remove('fa-bars');
-                        ikon.classList.add('fa-xmark');
-                    } else {
-                        ikon.classList.remove('fa-xmark');
-                        ikon.classList.add('fa-bars');
-                    }
-                });
-            }
-        });
-    </script>
 </body>
 </html>

@@ -9,13 +9,13 @@
     <link rel="stylesheet" href="profil.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/png" href="logo.png">
+    <script src="script.js" defer></script>
 </head>
-<body style="background: url('kocsik.jpg') center/cover no-repeat fixed; position: relative; min-height: 100vh;">
-
-    <!-- Sötétítő luxus réteg a háttérkép felett (mögé küldve, hogy ne takarja a gombokat) -->
-    <div style="position: fixed; inset: 0; background: linear-gradient(135deg, rgba(11,11,11,0.95) 0%, rgba(11,11,11,0.8) 100%); z-index: -1;"></div>
+<body class="aloldal-hatter">
+    <div class="hatter-sotetito"></div>
     <header class="fejlec">
-        <div class="fejlec-doboz kontener">
+        <!-- Az inline style garantálja, hogy a logó és a menü a két ellentétes sarokba kerüljön -->
+        <div class="fejlec-doboz kontener" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
             <a href="autokozmetika.html" class="logo"><i class="fa-solid fa-gem"></i> LUXUS <span>STUDIOS</span></a>
 
             <!-- Hamburger Gomb Mobilra -->
@@ -23,9 +23,9 @@
                 <i class="fa-solid fa-bars"></i>
             </button>
 
+            <!-- Navigáció -->
             <nav class="navigacio" id="fomenu">
                 <ul class="nav-lista">
-                    <!-- Fontos: Az 'aktiv' osztályt mindig annál a linknél hagyd meg, amelyik oldalon épp vagy! -->
                     <li class="nav-elem"><a href="autokozmetika.html" class="nav-link">Főoldal</a></li>
                     <li class="nav-elem"><a href="telephelyek.html" class="nav-link">Telephelyek</a></li>
                     <li class="nav-elem"><a href="szakemberek.html" class="nav-link">Mestereink</a></li>
@@ -40,14 +40,11 @@
     <main class="kontener terulet-padding">
         <h1 class="szekcio-cim kozepre">Adatvédelmi Tájékoztató</h1>
         <div class="elvalaszto"></div>
-
-        <div style="background: #1a1a1a; padding: 40px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); max-width: 800px; margin: 0 auto; line-height: 1.8; color: #a0a0a0;">
+        <div class="kartya-sotet" style="max-width: 800px; margin: 0 auto; line-height: 1.8;">
             <h3 style="color: #d4af37; font-family: 'Playfair Display', serif; margin-bottom: 15px;">1. Az adatkezelő célja és elvei</h3>
             <p>A Luxus Studios elkötelezett ügyfelei személyes adatainak védelme mellett. Az időpontfoglalás és a szakember profilok alatti vélemények küldése során megadott adatokat (név, dátum, időpont) kizárólag a szolgáltatás teljesítésére és a kapcsolatfelvételre használjuk fel a MySQL adatbázisunkban.</p>
-
             <h3 style="color: #d4af37; font-family: 'Playfair Display', serif; margin-top: 30px; margin-bottom: 15px;">2. Kezelt adatok köre</h3>
             <p>- <strong>Időpontfoglaláskor:</strong> Név, e-mail cím, telefonszám, választott szolgáltatás, időpont.<br>- <strong>Vélemény írásakor:</strong> Felhasználó neve, vélemény szövege, kapcsolódó szakember.</p>
-
             <h3 style="color: #d4af37; font-family: 'Playfair Display', serif; margin-top: 30px; margin-bottom: 15px;">3. Az adatok tárolásának időtartama</h3>
             <p>Az adatokat a törvényi előírásoknak megfelelően, illetve a foglalás teljesítéséig, vagy a felhasználó törlési kérelméig tároljuk biztonságos helyi MySQL szerveren.</p>
         </div>
@@ -57,46 +54,20 @@
         <div class="kontener lablec-racs">
             <div class="lablec-marka"><h3>Luxus Studios</h3><p>Az autóápolás művészete.</p></div>
             <div class="lablec-kapcsolat">
-            <h4>Kapcsolat</h4>
-            <p><i class="fa-solid fa-phone"></i> +36 70 881 1162</p>
-            <p><i class="fa-solid fa-phone"></i> +36 30 194 5512</p>
-            <p><i class="fa-solid fa-phone"></i> +36 30 982 7636</p>
-            <p><i class="fa-solid fa-at"></i> info@luxusstudios.hu</p>
-
-        </div>
+                <h4>Kapcsolat</h4>
+                <p><i class="fa-solid fa-phone"></i> +36 70 881 1162</p>
+                <p><i class="fa-solid fa-phone"></i> +36 30 194 5512</p>
+                <p><i class="fa-solid fa-phone"></i> +36 30 982 7636</p>
+                <p><i class="fa-solid fa-at"></i> info@luxusstudios.hu</p>
+            </div>
             <div class="lablec-kapcsolat">
                 <h4>Jogi Információk</h4>
-                <p><a href="impresszum.html" style="color: #a0a0a0; text-decoration: none;">Impresszum</a></p>
-                <p><a href="adatvedelem.html" style="color: #a0a0a0; text-decoration: none;">Adatvédelmi tájékoztató</a></p>
-                <p><a href="suti_szabalyzat.html" style="color: #a0a0a0; text-decoration: none;">Süti szabályzat</a></p>
+                <p><a href="impresszum.html" class="nav-link">Impresszum</a></p>
+                <p><a href="adatvedelem.html" class="nav-link">Adatvédelmi tájékoztató</a></p>
+                <p><a href="suti_szabalyzat.html" class="nav-link">Süti szabályzat</a></p>
             </div>
         </div>
         <div class="lablec-also kozepre"><p>&copy; 2026 Luxus Studios. Minden jog fenntartva.</p></div>
     </footer>
-        <!-- Hamburger Menü Működtető Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuGomb = document.getElementById('mobilMenugomb');
-            const menu = document.getElementById('fomenu');
-
-            if(menuGomb && menu) {
-                menuGomb.addEventListener('click', function() {
-                    // Hozzáadja vagy leveszi a 'nyitva' osztályt
-                    menu.classList.toggle('nyitva');
-
-                    // Ikon animált cseréje (☰ és X között)
-                    const ikon = menuGomb.querySelector('i');
-                    if(menu.classList.contains('nyitva')) {
-                        ikon.classList.remove('fa-bars');
-                        ikon.classList.add('fa-xmark');
-                    } else {
-                        ikon.classList.remove('fa-xmark');
-                        ikon.classList.add('fa-bars');
-                    }
-                });
-            }
-        });
-    </script>
-
 </body>
 </html>

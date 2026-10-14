@@ -8,13 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/png" href="logo.png">
+    <script src="script.js" defer></script>
 </head>
-<body style="background: url('kocsik.jpg') center/cover no-repeat fixed; position: relative; min-height: 100vh;">
-
-    <!-- Sötétítő luxus réteg a háttérkép felett -->
-    <div style="position: fixed; inset: 0; background: linear-gradient(135deg, rgba(11,11,11,0.95) 0%, rgba(11,11,11,0.8) 100%); z-index: -1;"></div>
+<body class="aloldal-hatter">
+    <div class="hatter-sotetito"></div>
     <header class="fejlec">
-        <div class="fejlec-doboz kontener">
+        <!-- Az inline style garantálja, hogy a logó és a menü a két ellentétes sarokba kerüljön -->
+        <div class="fejlec-doboz kontener" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
             <a href="autokozmetika.html" class="logo"><i class="fa-solid fa-gem"></i> LUXUS <span>STUDIOS</span></a>
 
             <!-- Hamburger Gomb Mobilra -->
@@ -22,10 +22,11 @@
                 <i class="fa-solid fa-bars"></i>
             </button>
 
+            <!-- Navigáció -->
             <nav class="navigacio" id="fomenu">
                 <ul class="nav-lista">
                     <li class="nav-elem"><a href="autokozmetika.html" class="nav-link">Főoldal</a></li>
-                    <li class="nav-elem"><a href="telephelyek.html" class="nav-link ">Telephelyek</a></li>
+                    <li class="nav-elem"><a href="telephelyek.html" class="nav-link">Telephelyek</a></li>
                     <li class="nav-elem"><a href="szakemberek.html" class="nav-link">Mestereink</a></li>
                     <li class="nav-elem"><a href="ajandekkartya.html" class="nav-link aktiv">Utalványok</a></li>
                     <li class="nav-elem"><a href="foglalas.html" class="nav-link gomb gomb-elsodleges">Foglalás</a></li>
@@ -43,7 +44,7 @@
         </div>
 
         <div class="urlap-tarolo">
-            <form id="utalvanyForm" onsubmit="tovabbFizeteshez(event)">
+            <form id="utalvanyForm">
                 <div class="urlap-csoport">
                     <label>Válassza ki az utalvány értékét</label>
                     <select id="utalvanyErtek" class="urlap-mezoszam">
@@ -69,67 +70,28 @@
         <div class="kontener lablec-racs">
             <div class="lablec-marka"><h3>Luxus Studios</h3><p>Az autóápolás művészete.</p></div>
             <div class="lablec-kapcsolat">
-            <h4>Kapcsolat</h4>
-            <p><i class="fa-solid fa-phone"></i> +36 70 881 1162</p>
-            <p><i class="fa-solid fa-phone"></i> +36 30 194 5512</p>
-            <p><i class="fa-solid fa-phone"></i> +36 30 982 7636</p>
-            <p><i class="fa-solid fa-at"></i> info@luxusstudios.hu</p>
-
-        </div>
+                <h4>Kapcsolat</h4>
+                <p><i class="fa-solid fa-phone"></i> +36 70 881 1162</p>
+                <p><i class="fa-solid fa-phone"></i> +36 30 194 5512</p>
+                <p><i class="fa-solid fa-phone"></i> +36 30 982 7636</p>
+                <p><i class="fa-solid fa-at"></i> info@luxusstudios.hu</p>
+            </div>
             <div class="lablec-kapcsolat">
                 <h4>Jogi Információk</h4>
-                <p><a href="impresszum.html" style="color: #a0a0a0; text-decoration: none;">Impresszum</a></p>
-                <p><a href="adatvedelem.html" style="color: #a0a0a0; text-decoration: none;">Adatvédelmi tájékoztató</a></p>
-                <p><a href="suti_szabalyzat.html" style="color: #a0a0a0; text-decoration: none;">Süti szabályzat</a></p>
+                <p><a href="impresszum.html" class="nav-link">Impresszum</a></p>
+                <p><a href="adatvedelem.html" class="nav-link">Adatvédelmi tájékoztató</a></p>
+                <p><a href="suti_szabalyzat.html" class="nav-link">Süti szabályzat</a></p>
             </div>
         </div>
         <div class="lablec-also kozepre"><p>&copy; 2026 Luxus Studios. Minden jog fenntartva.</p></div>
     </footer>
 
-    <!-- Cookie Sáv -->
     <div id="cookieBanner" class="cookie-sav">
         <p class="cookie-szoveg">Weboldalunk sütiket használ a felhasználói élmény fokozása érdekében. Részletekért olvassa el a <a href="suti_szabalyzat.html" class="cookie-link">Süti Szabályzatot</a>.</p>
         <div class="cookie-gombok">
-            <button onclick="cookieKezeles('elutasitva')" class="gomb-cookie-elutasit">Elutasítom</button>
-            <button onclick="cookieKezeles('elfogadva')" class="gomb-cookie-elfogad">Elfogadom</button>
+            <button id="btnCookieElutasit" class="gomb-cookie elutasit">Elutasítom</button>
+            <button id="btnCookieElfogad" class="gomb-cookie elfogad">Elfogadom</button>
         </div>
     </div>
-
-    <script>
-        // Süti kezelés
-        function cookieKezeles(dontes) { document.getElementById('cookieBanner').style.display = 'none'; localStorage.setItem('cookieDöntés', dontes); }
-        window.onload = function() { if(localStorage.getItem('cookieDöntés')) { document.getElementById('cookieBanner').style.display = 'none'; } }
-
-        // Átirányítás a különálló fizetési oldalra a kiválasztott összeggel
-        function tovabbFizeteshez(e) {
-            e.preventDefault();
-            let ertek = document.getElementById('utalvanyErtek').value;
-            window.location.href = `fizetes.html?ertek=${encodeURIComponent(ertek)}`;
-        }
-    </script>
-<!-- Hamburger Menü Működtető Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuGomb = document.getElementById('mobilMenugomb');
-            const menu = document.getElementById('fomenu');
-
-            if(menuGomb && menu) {
-                menuGomb.addEventListener('click', function() {
-                    // Hozzáadja vagy leveszi a 'nyitva' osztályt
-                    menu.classList.toggle('nyitva');
-
-                    // Ikon animált cseréje (☰ és X között)
-                    const ikon = menuGomb.querySelector('i');
-                    if(menu.classList.contains('nyitva')) {
-                        ikon.classList.remove('fa-bars');
-                        ikon.classList.add('fa-xmark');
-                    } else {
-                        ikon.classList.remove('fa-xmark');
-                        ikon.classList.add('fa-bars');
-                    }
-                });
-            }
-        });
-    </script>
 </body>
 </html>
