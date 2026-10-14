@@ -36,6 +36,7 @@
 
         <div class="fizetes-urlap-resz">
             <h3 style="font-family: 'Syne', sans-serif; font-size: 1.5rem; color: #fff; margin-bottom: 20px;">Bankkártya adatok</h3>
+            <p role="status" style="padding: 14px; margin-bottom: 20px; border: 1px solid #d4af37; color: #f5f5f5;">Bemutató oldal: valódi fizetés nincs beállítva. Ne adjon meg bankkártyaadatot.</p>
             <div class="kartya-logok" style="margin-bottom: 25px; display: flex; gap: 10px; color: #a0a0a0; font-size: 1.5rem;">
                 <i class="fa-brands fa-cc-visa" style="color: #ffffff;"></i>
                 <i class="fa-brands fa-cc-mastercard" style="color: #ffffff;"></i>
@@ -46,14 +47,14 @@
                     <label>Kártyaszám</label>
                     <div class="input-ikonnal">
                         <i class="fa-regular fa-credit-card"></i>
-                        <input type="text" id="kartyaSzam" class="urlap-mezoszam" placeholder="0000-0000-0000-0000" maxlength="19" required autocomplete="cc-number">
+                        <input type="text" id="kartyaSzam" class="urlap-mezoszam" placeholder="Fizetés nincs beállítva" disabled autocomplete="off">
                     </div>
                 </div>
                 <div class="urlap-csoport">
                     <label>Kártyabirtokos neve</label>
                     <div class="input-ikonnal">
                         <i class="fa-regular fa-user"></i>
-                        <input type="text" id="kartyaNev" class="urlap-mezoszam" placeholder="Pl. Szabó Béla" required autocomplete="cc-name">
+                        <input type="text" id="kartyaNev" class="urlap-mezoszam" placeholder="Fizetés nincs beállítva" disabled autocomplete="off">
                     </div>
                 </div>
                 <div style="display: flex; gap: 15px;">
@@ -61,19 +62,19 @@
                         <label>Lejárat (HH/ÉÉ)</label>
                         <div class="input-ikonnal">
                             <i class="fa-regular fa-calendar"></i>
-                            <input type="text" id="kartyaLejarat" class="urlap-mezoszam" placeholder="12/28" maxlength="5" required autocomplete="cc-exp">
+                            <input type="text" id="kartyaLejarat" class="urlap-mezoszam" placeholder="—" disabled autocomplete="off">
                         </div>
                     </div>
                     <div class="urlap-csoport" style="flex: 1;">
                         <label>CVC Kód</label>
                         <div class="input-ikonnal">
                             <i class="fa-solid fa-lock"></i>
-                            <input type="text" id="kartyaCvc" class="urlap-mezoszam" placeholder="123" maxlength="3" required autocomplete="cc-csc">
+                            <input type="text" id="kartyaCvc" class="urlap-mezoszam" placeholder="—" disabled autocomplete="off">
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="gomb gomb-elsodleges" style="width: 100%; margin-top: 15px; font-size: 1rem; padding: 16px;">
-                    Fizetés jóváhagyása <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i>
+                <button type="submit" class="gomb gomb-elsodleges" style="width: 100%; margin-top: 15px; font-size: 1rem; padding: 16px;" disabled>
+                    Fizetés jelenleg nem elérhető
                 </button>
                 <div style="text-align: center; margin-top: 20px;">
                     <a href="ajandekkartya.html" style="color: #a0a0a0; font-size: 0.85rem; transition: 0.3s;"><i class="fa-solid fa-arrow-left"></i> Mégse és vissza az utalványokhoz</a>

@@ -134,16 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (fizetesForm) {
         fizetesForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            if (kartyaSzamInput.value.length < 19) {
-                alert("Kérjük adja meg a teljes 16 jegyű kártyaszámot!");
-                return;
-            }
-            if (cvcInput.value.length < 3) {
-                alert("A CVC kódnak 3 számjegyből kell állnia!");
-                return;
-            }
-            let rendelesSzam = 'LUXUS-' + Math.floor(100000 + Math.random() * 900000);
-            window.location.href = `sikeres_vasarlas.html?rendeles=${rendelesSzam}`;
+            alert('Ez az oldal jelenleg csak bemutató. Ne adjon meg bankkártyaadatot; valódi fizetés még nincs beállítva.');
         });
     }
 
@@ -156,7 +147,8 @@ document.addEventListener('DOMContentLoaded', () => {
             "lindner_szabolcs": { nev: "Lindner Szabolcs", szolgaltatasok: [{ id: "ker_1", nev: "1 Éves Védőbevonat" }, { id: "ker_3", nev: "3 Éves 9H Kerámia" }], foglaltNapok: [10, 11, 12, 13, 28, 29] }
         };
         const idosavokAlap = ["08:00", "10:00", "13:00", "15:00"];
-        let aktualisEv = 2026, aktualisHo = 9;
+        const ma = new Date();
+        let aktualisEv = ma.getFullYear(), aktualisHo = ma.getMonth();
         const honapNevek = ["Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December"];
         let kivalasztottSzaki = null;
 
@@ -211,7 +203,9 @@ document.addEventListener('DOMContentLoaded', () => {
             for (let i = 1; i <= napokSzama; i++) {
                 const div = document.createElement('div');
                 div.className = 'naptar-nap'; div.textContent = i;
-                if (kivalasztottSzaki.foglaltNapok.includes(i)) {
+                const napDatum = new Date(aktualisEv, aktualisHo, i);
+                const napMult = napDatum < new Date(ma.getFullYear(), ma.getMonth(), ma.getDate());
+                if (napMult || kivalasztottSzaki.foglaltNapok.includes(i)) {
                     div.classList.add('foglalt');
                 } else {
                     div.classList.add('szabad');
@@ -246,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const datum = document.getElementById('kivalasztottDatumH').value;
             const ido = document.getElementById('kivalasztottIdopontH').value;
             if (!datum || !ido) { alert("Válasszon szabad napot és időpontot!"); return; }
-            alert(`Sikeres foglalás!\nNév: ${document.getElementById('ugyfelNev').value}\nIdőpont: ${datum} ${ido}`);
+            alert(`Bemutató foglalási folyamat: az időpontot nem mentettük el.\nVálasztott időpont: ${datum} ${ido}\nValódi foglaláshoz kérjük, hívjon minket.`);
             event.target.reset();
             document.getElementById('naptarSzekcio').style.display = 'none';
         });
@@ -267,8 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             hibaElem.style.display = 'none';
 
-            document.getElementById('regisztracioForm').style.display = 'none';
-            document.getElementById('sikeresReg').style.display = 'block';
+            alert('A regisztráció jelenleg csak bemutató: fiók nem jött létre.');
         });
     }
 
@@ -281,8 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (bejelentkezesForm) {
         bejelentkezesForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            bejelentkezoSzekcio.style.display = 'none';
-            vezerlopultSzekcio.style.display = 'block';
+            alert('A bejelentkezés jelenleg csak bemutató, fiókrendszer még nincs beállítva.');
         });
     }
 
