@@ -29,8 +29,20 @@
     <main class="kontener terulet-padding">
         <h1 class="szekcio-cim">Adminisztráció</h1><div class="elvalaszto"></div>
         <p id="adminMessage" role="status">Adatok betöltése…</p>
+        <section class="admin-panel">
+            <h2 class="kartya-cim">Új adminfiók létrehozása</h2>
+            <p>Adminfiókot csak bejelentkezett admin hozhat létre. A jelszó legalább 10 karakter legyen.</p>
+            <form id="adminUserForm" style="max-width:560px">
+                <div class="urlap-csoport"><label for="adminUserName">Név</label><input class="urlap-mezoszam" id="adminUserName" required maxlength="120" autocomplete="name"></div>
+                <div class="urlap-csoport"><label for="adminUserEmail">E-mail cím</label><input class="urlap-mezoszam" id="adminUserEmail" type="email" required maxlength="190" autocomplete="email"></div>
+                <div class="urlap-csoport"><label for="adminUserPassword">Jelszó</label><input class="urlap-mezoszam" id="adminUserPassword" type="password" required minlength="10" autocomplete="new-password"></div>
+                <div class="urlap-csoport"><label for="adminUserScope">Admin jogosultsági köre</label><select class="admin-status" id="adminUserScope" required><option value="toth_zoltan">Tóth Zoltán adatai</option><option value="lindner_szabolcs">Lindner Szabolcs adatai</option><option value="all">Teljes hozzáférés (Gábor)</option></select></div>
+                <button class="gomb gomb-elsodleges" type="submit">Adminfiók létrehozása</button>
+            </form>
+            <p id="adminUserMessage" role="status" aria-live="polite"></p>
+        </section>
         <section class="admin-panel"><h2 class="kartya-cim">Foglalások</h2><table class="admin-table"><thead><tr><th>Dátum, idő</th><th>Ügyfél</th><th>Szolgáltatás</th><th>Szakember</th><th>Művelet</th></tr></thead><tbody id="adminBookings"></tbody></table></section>
-        <section class="admin-panel"><h2 class="kartya-cim">Utalványrendelések</h2><table class="admin-table"><thead><tr><th>Azonosító</th><th>Dátum</th><th>Megajándékozott</th><th>Összeg</th><th>Állapot</th></tr></thead><tbody id="adminOrders"></tbody></table></section>
+        <section class="admin-panel" id="adminOrdersPanel"><h2 class="kartya-cim">Utalványrendelések</h2><table class="admin-table"><thead><tr><th>Azonosító</th><th>Dátum</th><th>Megajándékozott</th><th>Összeg</th><th>Állapot</th></tr></thead><tbody id="adminOrders"></tbody></table></section>
         <section class="admin-panel"><h2 class="kartya-cim">Vélemények</h2><table class="admin-table"><thead><tr><th>Dátum</th><th>Szakember</th><th>Név</th><th>Vélemény</th><th>Művelet</th></tr></thead><tbody id="adminReviews"></tbody></table></section>
     </main>
 </body>

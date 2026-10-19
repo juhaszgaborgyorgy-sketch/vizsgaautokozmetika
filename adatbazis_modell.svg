@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1050" viewBox="0 0 1600 1050">
+<rect width="100%" height="100%" fill="#f7f8fa"/>
+<style>text{font-family:Arial,sans-serif;fill:#17212b}.head{fill:#fff;font-weight:bold;font-size:27px}.field{font-size:24px}.title{font-size:38px;font-weight:bold;fill:#17324d}.rel{font-size:20px;fill:#334155}</style>
+<text x="70" y="60" class="title">Luxus Studios adatbázis-modell</text>
+<line x1="480" y1="350.0" x2="580" y2="350.0" stroke="#546477" stroke-width="4"/><text x="530.0" y="325.0" class="rel"></text>
+<line x1="275.0" y1="600" x2="275.0" y2="660" stroke="#546477" stroke-width="4"/><text x="299.0" y="630.0" class="rel">felhasznalo_id (kötelező)</text>
+<rect x="70" y="100" width="410" height="500" rx="18" fill="white" stroke="#263849" stroke-width="3"/><path d="M88 100h374a18 18 0 0 1 18 18v37h-410v-37a18 18 0 0 1 18-18" fill="#17324d"/><text x="88" y="137" class="head">felhasznalok</text>
+<text x="92" y="195" class="field">id PK</text>
+<text x="92" y="232" class="field">nev</text>
+<text x="92" y="269" class="field">email UNIQUE</text>
+<text x="92" y="306" class="field">jelszo_hash</text>
+<text x="92" y="343" class="field">admin</text>
+<text x="92" y="380" class="field">letrehozva</text>
+<rect x="580" y="100" width="410" height="500" rx="18" fill="white" stroke="#263849" stroke-width="3"/><path d="M598 100h374a18 18 0 0 1 18 18v37h-410v-37a18 18 0 0 1 18-18" fill="#17324d"/><text x="598" y="137" class="head">foglalasok</text>
+<text x="602" y="195" class="field">id PK</text>
+<text x="602" y="232" class="field">felhasznalo_id FK NULL</text>
+<text x="602" y="269" class="field">szakember_id</text>
+<text x="602" y="306" class="field">szolgaltatas_id</text>
+<text x="602" y="343" class="field">szolgaltatas_nev</text>
+<text x="602" y="380" class="field">ugyfel_nev</text>
+<text x="602" y="417" class="field">email</text>
+<text x="602" y="454" class="field">datum</text>
+<text x="602" y="491" class="field">idopont</text>
+<text x="602" y="528" class="field">letrehozva</text>
+<rect x="70" y="660" width="410" height="500" rx="18" fill="white" stroke="#263849" stroke-width="3"/><path d="M88 660h374a18 18 0 0 1 18 18v37h-410v-37a18 18 0 0 1 18-18" fill="#17324d"/><text x="88" y="697" class="head">jarmuvek</text>
+<text x="92" y="755" class="field">id PK</text>
+<text x="92" y="792" class="field">felhasznalo_id FK UNIQUE</text>
+<text x="92" y="829" class="field">tipus</text>
+<text x="92" y="866" class="field">rendszam</text>
+<rect x="580" y="660" width="410" height="500" rx="18" fill="white" stroke="#263849" stroke-width="3"/><path d="M598 660h374a18 18 0 0 1 18 18v37h-410v-37a18 18 0 0 1 18-18" fill="#17324d"/><text x="598" y="697" class="head">velemenyek</text>
+<text x="602" y="755" class="field">id PK</text>
+<text x="602" y="792" class="field">szakember_id</text>
+<text x="602" y="829" class="field">nev</text>
+<text x="602" y="866" class="field">szoveg</text>
+<text x="602" y="903" class="field">letrehozva</text>
+<rect x="1100" y="320" width="410" height="500" rx="18" fill="white" stroke="#263849" stroke-width="3"/><path d="M1118 320h374a18 18 0 0 1 18 18v37h-410v-37a18 18 0 0 1 18-18" fill="#17324d"/><text x="1118" y="357" class="head">utalvany_rendelesek</text>
+<text x="1122" y="415" class="field">id PK</text>
+<text x="1122" y="452" class="field">rendelesi_kod UNIQUE</text>
+<text x="1122" y="489" class="field">ertek</text>
+<text x="1122" y="526" class="field">megajandekozott</text>
+<text x="1122" y="563" class="field">email</text>
+<text x="1122" y="600" class="field">allapot</text>
+<text x="1122" y="637" class="field">letrehozva</text>
+<text x="498" y="318" class="rel">1:N</text>
+<text x="286" y="615" class="rel">1:1</text>
+<text x="70" y="1190" class="rel">A kapcsolatok a SQL-sémában definiált idegen kulcsokat mutatják. A szakember- és szolgáltatás-azonosítók</text>
+<text x="70" y="1220" class="rel">szöveges mezők, külön törzstáblájuk nincs. A vélemények és utalványrendelések nem kapcsolódnak felhasználóhoz.</text>
+</svg>

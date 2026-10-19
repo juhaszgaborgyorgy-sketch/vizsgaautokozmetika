@@ -4,7 +4,8 @@ declare(strict_types=1);
 require_once __DIR__ . '/kapcsolat.php';
 
 $isHttps = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
-session_set_cookie_params(['httponly' => true, 'secure' => $isHttps, 'samesite' => 'Lax']);
+// The options-array form is only supported by PHP 7.3 and newer.
+session_set_cookie_params(0, '/; samesite=Lax', '', $isHttps, true);
 session_start();
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
@@ -45,6 +46,17 @@ function requireAdmin(): int {
     return $id;
 }
 
+function adminScope(int $id): string {
+    global $kapcsolat;
+    $query = $kapcsolat->prepare('SELECT admin_scope FROM felhasznalok WHERE id = ? AND admin = 1');
+    $query->execute([$id]);
+    $scope = $query->fetchColumn();
+    if (!in_array($scope, ['all', 'toth_zoltan', 'lindner_szabolcs'], true)) {
+        respond(['error' => 'Az admin jogosultsági hatóköre érvénytelen.'], 403);
+    }
+    return $scope;
+}
+
 function cleanString($value, int $max): string {
     $value = trim((string)$value);
     if ($value === '' || mb_strlen($value) > $max) respond(['error' => 'Ellenőrizd a megadott adatokat.'], 422);
@@ -56,7 +68,9 @@ $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
 try {
     if ($method === 'GET' && $action === 'csrf') {
-        $_SESSION['csrf'] ??= bin2hex(random_bytes(32));
+        if (!isset($_SESSION['csrf'])) {
+            $_SESSION['csrf'] = bin2hex(random_bytes(32));
+        }
         respond(['csrf' => $_SESSION['csrf']]);
     }
 
@@ -118,11 +132,22 @@ try {
     }
 
     if ($method === 'GET' && $action === 'admin_data') {
-        requireAdmin();
-        $bookings = $kapcsolat->query('SELECT id, szakember_id AS staffId, szolgaltatas_nev AS serviceName, ugyfel_nev AS name, email, DATE_FORMAT(datum, "%Y-%m-%d") AS date, TIME_FORMAT(idopont, "%H:%i") AS time FROM foglalasok ORDER BY datum, idopont')->fetchAll();
-        $reviews = $kapcsolat->query('SELECT id, szakember_id AS staffId, nev AS name, szoveg AS text, DATE_FORMAT(letrehozva, "%Y-%m-%d") AS date FROM velemenyek ORDER BY id DESC')->fetchAll();
-        $orders = $kapcsolat->query('SELECT id, rendelesi_kod AS code, ertek AS amount, megajandekozott AS recipient, email, allapot AS status, DATE_FORMAT(letrehozva, "%Y-%m-%d") AS date FROM utalvany_rendelesek ORDER BY id DESC')->fetchAll();
-        respond(['bookings' => $bookings, 'reviews' => $reviews, 'orders' => $orders]);
+        $id = requireAdmin();
+        $scope = adminScope($id);
+        if ($scope === 'all') {
+            $bookings = $kapcsolat->query('SELECT id, szakember_id AS staffId, szolgaltatas_nev AS serviceName, ugyfel_nev AS name, email, DATE_FORMAT(datum, "%Y-%m-%d") AS date, TIME_FORMAT(idopont, "%H:%i") AS time FROM foglalasok ORDER BY datum, idopont')->fetchAll();
+            $reviews = $kapcsolat->query('SELECT id, szakember_id AS staffId, nev AS name, szoveg AS text, DATE_FORMAT(letrehozva, "%Y-%m-%d") AS date FROM velemenyek ORDER BY id DESC')->fetchAll();
+            $orders = $kapcsolat->query('SELECT id, rendelesi_kod AS code, ertek AS amount, megajandekozott AS recipient, email, allapot AS status, DATE_FORMAT(letrehozva, "%Y-%m-%d") AS date FROM utalvany_rendelesek ORDER BY id DESC')->fetchAll();
+        } else {
+            $bookingsQuery = $kapcsolat->prepare('SELECT id, szakember_id AS staffId, szolgaltatas_nev AS serviceName, ugyfel_nev AS name, email, DATE_FORMAT(datum, "%Y-%m-%d") AS date, TIME_FORMAT(idopont, "%H:%i") AS time FROM foglalasok WHERE szakember_id = ? ORDER BY datum, idopont');
+            $bookingsQuery->execute([$scope]);
+            $bookings = $bookingsQuery->fetchAll();
+            $reviewsQuery = $kapcsolat->prepare('SELECT id, szakember_id AS staffId, nev AS name, szoveg AS text, DATE_FORMAT(letrehozva, "%Y-%m-%d") AS date FROM velemenyek WHERE szakember_id = ? ORDER BY id DESC');
+            $reviewsQuery->execute([$scope]);
+            $reviews = $reviewsQuery->fetchAll();
+            $orders = [];
+        }
+        respond(['scope' => $scope, 'bookings' => $bookings, 'reviews' => $reviews, 'orders' => $orders]);
     }
 
     if ($method !== 'POST') respond(['error' => 'Nem támogatott kérés.'], 405);
@@ -144,6 +169,31 @@ try {
         $_SESSION['user_id'] = (int)$kapcsolat->lastInsertId();
         $linkBookings = $kapcsolat->prepare('UPDATE foglalasok SET felhasznalo_id = ? WHERE email = ? AND felhasznalo_id IS NULL');
         $linkBookings->execute([$_SESSION['user_id'], $email]);
+        respond(['ok' => true]);
+    }
+
+    if ($action === 'admin_user_create') {
+        $adminId = requireAdmin();
+        if (adminScope($adminId) !== 'all') {
+            respond(['error' => 'Új adminfiókot csak teljes jogosultságú admin hozhat létre.'], 403);
+        }
+        $name = cleanString($data['name'] ?? '', 120);
+        $email = mb_strtolower(cleanString($data['email'] ?? '', 190));
+        $password = (string)($data['password'] ?? '');
+        $scope = (string)($data['scope'] ?? '');
+        if (!in_array($scope, ['all', 'toth_zoltan', 'lindner_szabolcs'], true)) {
+            respond(['error' => 'Válassz érvényes admin jogosultsági kört.'], 422);
+        }
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($password) < 10) {
+            respond(['error' => 'Adj meg érvényes e-mail címet és legalább 10 karakteres jelszót.'], 422);
+        }
+        $query = $kapcsolat->prepare('INSERT INTO felhasznalok (nev, email, jelszo_hash, admin, admin_scope) VALUES (?, ?, ?, 1, ?)');
+        try {
+            $query->execute([$name, $email, password_hash($password, PASSWORD_DEFAULT), $scope]);
+        } catch (PDOException $e) {
+            if ($e->getCode() === '23000') respond(['error' => 'Ezzel az e-mail címmel már létezik fiók.'], 409);
+            throw $e;
+        }
         respond(['ok' => true]);
     }
 
@@ -191,8 +241,8 @@ try {
 
     if ($action === 'booking_cancel') {
         $id = requireLogin();
-        $query = $kapcsolat->prepare('DELETE FROM foglalasok WHERE id = ? AND (felhasznalo_id = ? OR ? IN (SELECT id FROM felhasznalok WHERE admin = 1))');
-        $query->execute([(int)($data['id'] ?? 0), $id, $id]);
+        $query = $kapcsolat->prepare('DELETE FROM foglalasok WHERE id = ? AND felhasznalo_id = ?');
+        $query->execute([(int)($data['id'] ?? 0), $id]);
         if (!$query->rowCount()) respond(['error' => 'A foglalás nem található.'], 404);
         respond(['ok' => true]);
     }
@@ -237,21 +287,36 @@ try {
     }
 
     if ($action === 'admin_booking_cancel') {
-        requireAdmin();
-        $query = $kapcsolat->prepare('DELETE FROM foglalasok WHERE id = ?');
-        $query->execute([(int)($data['id'] ?? 0)]);
+        $scope = adminScope(requireAdmin());
+        if ($scope === 'all') {
+            $query = $kapcsolat->prepare('DELETE FROM foglalasok WHERE id = ?');
+            $query->execute([(int)($data['id'] ?? 0)]);
+        } else {
+            $query = $kapcsolat->prepare('DELETE FROM foglalasok WHERE id = ? AND szakember_id = ?');
+            $query->execute([(int)($data['id'] ?? 0), $scope]);
+        }
+        if (!$query->rowCount()) respond(['error' => 'A foglalás nem található vagy nincs hozzá jogosultság.'], 404);
         respond(['ok' => true]);
     }
 
     if ($action === 'admin_review_delete') {
-        requireAdmin();
-        $query = $kapcsolat->prepare('DELETE FROM velemenyek WHERE id = ?');
-        $query->execute([(int)($data['id'] ?? 0)]);
+        $scope = adminScope(requireAdmin());
+        if ($scope === 'all') {
+            $query = $kapcsolat->prepare('DELETE FROM velemenyek WHERE id = ?');
+            $query->execute([(int)($data['id'] ?? 0)]);
+        } else {
+            $query = $kapcsolat->prepare('DELETE FROM velemenyek WHERE id = ? AND szakember_id = ?');
+            $query->execute([(int)($data['id'] ?? 0), $scope]);
+        }
+        if (!$query->rowCount()) respond(['error' => 'A vélemény nem található vagy nincs hozzá jogosultság.'], 404);
         respond(['ok' => true]);
     }
 
     if ($action === 'admin_order_status') {
-        requireAdmin();
+        $adminId = requireAdmin();
+        if (adminScope($adminId) !== 'all') {
+            respond(['error' => 'Az utalványrendelések kezeléséhez teljes admin jogosultság szükséges.'], 403);
+        }
         $status = (string)($data['status'] ?? '');
         if (!in_array($status, ['új', 'teljesítve', 'törölve'], true)) respond(['error' => 'Érvénytelen rendelési állapot.'], 422);
         $query = $kapcsolat->prepare('UPDATE utalvany_rendelesek SET allapot = ? WHERE id = ?');

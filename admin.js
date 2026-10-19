@@ -18,10 +18,32 @@ document.addEventListener('DOMContentLoaded', async () => {
     const cell = (row, text) => { const td = document.createElement('td'); td.textContent = text ?? ''; row.appendChild(td); return td; };
     const staffNames = { toth_zoltan: 'Tóth Zoltán', juhasz_gabor: 'Juhász Gábor', lindner_szabolcs: 'Lindner Szabolcs' };
 
+    const adminUserForm = document.getElementById('adminUserForm');
+    const adminUserMessage = document.getElementById('adminUserMessage');
+    adminUserForm.addEventListener('submit', async event => {
+        event.preventDefault();
+        adminUserMessage.textContent = '';
+        const values = {
+            name: document.getElementById('adminUserName').value.trim(),
+            email: document.getElementById('adminUserEmail').value.trim(),
+            password: document.getElementById('adminUserPassword').value,
+            scope: document.getElementById('adminUserScope').value
+        };
+        try {
+            await post('admin_user_create', values);
+            adminUserMessage.textContent = `Az adminfiók elkészült: ${values.email}`;
+            adminUserForm.reset();
+        } catch (error) {
+            adminUserMessage.textContent = error.message;
+        }
+    });
+
     const load = async () => {
         try {
             const data = await get('admin_data');
-            message.textContent = 'Az adatok betöltődtek.';
+            message.textContent = data.scope === 'all' ? 'Teljes jogosultságú adminfiók.' : `Korlátozott adminfiók: ${staffNames[data.scope] || data.scope}`;
+            adminUserForm.closest('.admin-panel').hidden = data.scope !== 'all';
+            document.getElementById('adminOrdersPanel').hidden = data.scope !== 'all';
             const bookings = document.getElementById('adminBookings');
             bookings.replaceChildren();
             data.bookings.forEach(item => {

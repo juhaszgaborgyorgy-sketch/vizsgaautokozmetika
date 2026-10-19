@@ -20,7 +20,7 @@ if (!$isLocal) {
         $message = 'Adj meg nevet, érvényes e-mail címet és legalább 10 karakteres jelszót.';
     } else {
         try {
-            $insert = $kapcsolat->prepare('INSERT INTO felhasznalok (nev, email, jelszo_hash, admin) VALUES (?, ?, ?, 1)');
+            $insert = $kapcsolat->prepare("INSERT INTO felhasznalok (nev, email, jelszo_hash, admin, admin_scope) VALUES (?, ?, ?, 1, 'all')");
             $insert->execute([$name, $email, password_hash($password, PASSWORD_DEFAULT)]);
             $success = true;
             $message = 'Az adminfiók létrejött. Mostantól jelentkezz be a weboldal Fiók oldalán.';

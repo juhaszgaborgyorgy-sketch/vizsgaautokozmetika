@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS felhasznalok (
     email VARCHAR(190) NOT NULL UNIQUE,
     jelszo_hash VARCHAR(255) NOT NULL,
     admin TINYINT(1) NOT NULL DEFAULT 0,
+    admin_scope ENUM('all', 'toth_zoltan', 'lindner_szabolcs') NOT NULL DEFAULT 'all',
     letrehozva TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
